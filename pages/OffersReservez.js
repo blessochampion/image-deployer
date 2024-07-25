@@ -1,1 +1,569 @@
-"use strict";(()=>{var n="data",a={apartmentCmsItem:`[${n}=apartment-cms-item]`,countryCode:`[${n}=country-code]`,startingPriceList:`[${n}=starting-price-list]`,price:`[${n}=price]`,currency:`[${n}=currency]`,beHid:`[${n}-be-hid]`,destination:`[${n}=destination]`,offersList:`[${n}=offers-list]`,listItem:`[${n}=list-item]`,image:`[${n}=image]`,name:`[${n}=name]`,description:`[${n}=description]`,hotelName:`[${n}=hotel-name]`,hotelLink:`[${n}=hotel-link]`,moreDetails:`[${n}=more-details]`,offersPopup:`[${n}=offers-popup]`,offersPopupClose:`[${n}=close-btn]`,hotelReserveLink:`[${n}=hotel-reserve-link]`,hotelVillaReserveLink:`[${n}=hotel-villa-reserve-link]`,languageDropdown:`[${n}=language-dropdown]`,loadingSpinner:`[${n}=loading-spinner]`,cmsLoadEmptyState:"[fs-cmsload-element=empty]",startingfromItem:c=>`[${n}-be-hid=${c}]`};var C={DHDICBeach:"gpgos12767",DHDIJMalanga:"gptro12772",DHDIToubana:"gpsai12770",DHDIMahogany:"gpgos12769",DHDILangleyres:"gpgua27143",DHDIJungle:"mqros18592",DHDIJade:"agste21689",DHDIWINDLAND:"zzzzz25376",DHDILeCapMaison:"lcgro30400",DHDIChastenet:"agste21688",DHDILPSoleil:"mqsai18593",DHDISHANTI:"zzzzz25378",DHDIPavillon:"zzzzz25377",DHDIBELLEMARE:"zzzzz25379",DHDIPrincemaurice:"mupos25678",DHDIANAHITA:"zzzzz25380",DHDISamana:"agstm21687",FRANTHTLGrandCaseBe1:"frsai31536",DHDITInn:"ageng20433",DHDIBWaters:"agcro20496",DHDICuisinartgolf:"gpang25884"},L={gpgos12767:{destination:"\xCEles de Guadeloupe",slug:"/hotels-et-villas/creole-beach-hotel-spa"},gptro12772:{destination:"\xCEles de Guadeloupe",slug:"/hotels-et-villas/le-jardin-malanga"},gpsai12770:{destination:"\xCEles de Guadeloupe",slug:"/hotels-et-villas/la-toubana-hotel-spa"},gpgos12769:{destination:"\xCEles de Guadeloupe",slug:"/hotels-et-villas/mahogany-hotel-residence-spa"},gpgua27143:{destination:"\xCEles de Guadeloupe",slug:"/hotels-et-villas/langley-resort-fort-royal"},mqros18592:{destination:"Dominique",slug:"/hotels-et-villas/jungle-bay-dominica"},agste21689:{destination:"Sainte-Lucie",slug:"/hotels-et-villas/jade-mountain"},zzzzz25376:{destination:"Sainte-Lucie",slug:"/hotels-et-villas/windjammer-landing"},lcgro30400:{destination:"Sainte-Lucie",slug:"/hotels-et-villas/cap-maison"},agste21688:{destination:"Sainte-Lucie",slug:"/hotels-et-villas/anse-chastanet"},mqsai18593:{destination:"Martinique",slug:"/hotels-et-villas/plein-soleil"},zzzzz25378:{destination:"ile Maurice",slug:"/hotels-et-villas/shanti-maurice"},zzzzz25377:{destination:"ile Maurice",slug:"/hotels-et-villas/lux-le-morne"},zzzzz25379:{destination:"ile Maurice",slug:"/hotels-et-villas/constance-belle-mare-plage"},mupos25678:{destination:"ile Maurice",slug:"/hotels-et-villas/constance-le-prince-maurice"},zzzzz25380:{destination:"ile Maurice",slug:"/hotels-et-villas/anahita-the-resort"},agstm21687:{destination:"Saint-Martin",slug:"/hotels-et-villas/la-samanna"},frsai31536:{destination:"Saint Martin",slug:"/hotels-et-villas/le-grand-case-beach-club"},ageng20433:{destination:"Antigua",slug:"/hotels-et-villas/the-inn-at-english-harbour"},agcro20496:{destination:"Antigua",slug:"/hotels-et-villas/blue-waters"},gpang25884:{destination:"Anguilla",slug:"/hotels-et-villas/aurora-anguilla-resort-golf-club"}},I={AED:"\u062F.\u0625.",AFN:"Af",ALL:"L",AMD:"\u058F",ANG:"\u0192",AOA:"Kz",ARS:"AR$",AUD:"AU$",AWG:"\u0192",AZN:"\u043C\u0430\u043D",BAM:"KM",BBD:"BBD$",BDT:"\u09F3",BGN:"\u043B\u0432.",BHD:"BD",BIF:"FBu",BMD:"$",BND:"B$",BOB:"Bs.",BRL:"R$",BSD:"$",BTN:"Nu.",BWP:"P",BYN:"Br",BZD:"BZ$",CAD:"CA$",CDF:"FC",CHF:"Fr.",CKD:"$",CLP:"CL$",CNY:"CN\xA5",COP:"CO$",CRC:"\u20A1",CUC:"CUC$",CUP:"$MN",CVE:"CV$",CZK:"K\u010D",DJF:"Fdj",DKK:"kr.",DOP:"RD$",DZD:"DA",EGP:"E\xA3",EHP:"Ptas.",ERN:"Nkf",ETB:"Br",EUR:"\u20AC",FJD:"FJ$",FKP:"FK\xA3",FOK:"kr",GBP:"\xA3",GEL:"\u20BE",GGP:"\xA3",GHS:"GH\u20B5",GIP:"\xA3",GMD:"D",GNF:"FG",GTQ:"Q",GYD:"G$",HKD:"HK$",HNL:"L",HRK:"kn",HTG:"G",HUF:"Ft",IDR:"Rp",ILS:"\u20AA",IMP:"\xA3",INR:"Rs.",IQD:"\u062F.\u0639.",IRR:"\uFDFC",ISK:"kr",JEP:"\xA3",JMD:"J$",JOD:"JD",JPY:"\xA5",KES:"KSh",KGS:"\u0441",KHR:"\u17DB",KID:"$",KMF:"CF",KPW:"\u20A9",KRW:"\u20A9",KWD:"KD",KYD:"CI$",KZT:"\u20B8",LAK:"\u20ADN",LBP:"LL.",LKR:"Rs.",LRD:"L$",LSL:"L",LYD:"LD",MAD:"DH",MDL:"L",MGA:"Ar",MKD:"den",MMK:"Ks",MNT:"\u20AE",MOP:"MOP$",MRU:"UM",MUR:"Rs.",MVR:"MRf",MWK:"MK",MXN:"MX$",MYR:"RM",MZN:"MTn",NAD:"N$",NGN:"\u20A6",NIO:"C$",NOK:"kr",NPR:"Rs.",NZD:"NZ$",OMR:"OR",PAB:"B/.",PEN:"S/.",PGK:"K",PHP:"\u20B1",PKR:"Rs.",PLN:"z\u0142",PND:"$",PRB:"\u0440.",PYG:"\u20B2",QAR:"QR",RON:"L",RSD:"din",RUB:"\u20BD",RWF:"FRw",SAR:"SR",SBD:"SI$",SCR:"Rs.",SDG:"\xA3SD",SEK:"kr",SGD:"S$",SHP:"\xA3",SLL:"Le",SLS:"Sl",SOS:"Sh.So.",SRD:"Sr$",SSP:"SS\xA3",STN:"Db",SVC:"\u20A1",SYP:"LS",SZL:"L",THB:"\u0E3F",TJS:"SM",TMT:"m.",TND:"DT",TOP:"T$",TRY:"TL",TTD:"TT$",TVD:"$",TWD:"NT$",TZS:"TSh",UAH:"\u20B4",UGX:"USh",USD:"$",UYU:"$U",UZS:"\u0441\u0443\u043C",VED:"Bs.",VES:"Bs.F",VND:"\u20AB",VUV:"VT",WST:"T",XAF:"Fr",XCD:"$",XOF:"\u20A3",XPF:"\u20A3",YER:"YR",ZAR:"R",ZMW:"ZK",ZWB:"",ZWL:"Z$",Abkhazia:"",Artsakh:"\u0564\u0580."},R={it:"it_IT",es:"es_ES",fr:"fr_FR",en:"en_GB"},y={"DERNI\xC8RE MINUTE":"735fe5e0858671cf3a5c14cbcc2470fe","R\xC9SERVEZ T\xD4T":"c5abb23caf056891f3902ff42ae2f9e0"},h="https://deshotelsetdesiles.ccordier.workers.dev/";var O=c=>{let e="?";for(let[t,s]of Object.entries(c))s&&(e+=`${t}=${s}&`);return e};var H=()=>{document.querySelector(a.languageDropdown)?.querySelectorAll("a")?.forEach(t=>{t.addEventListener("click",()=>{})})},$=()=>{let c=localStorage.getItem("wglang")||"fr";return R[c]};var E=(c,e)=>`${c.toLowerCase()}-${e.toLowerCase()}`;var S=class{constructor(e,t,s){this.listInstance=e,this.itemTemplateElement=t;let o=s.splice(2);this.hotelsIds=[s,o],e.clearItems(),H(),this.loadingSpinner=document.querySelector(a.loadingSpinner);let r=document.querySelector(a.cmsLoadEmptyState);r&&setTimeout(()=>{r.style.display="none"},200)}async getGroupOffers(e){let{clearItems:t=!0,filter:s}=e||{};t&&this.listInstance.clearItems();let i=await this.getCMSOffers();if(!i)return;let o=i.items.filter(s||(()=>!0)),{offerLookup:r,offerMetaData:l}=this.generateOfferData(o);for(let f of this.hotelsIds){let u=f.join(","),m=await this.getGroupOffersData({hids:u,locale:$()});this.addHotelToCollection(m,s?l:void 0)}this.loadingSpinner&&(this.loadingSpinner.style.display="none")}async getGroupCategoryOffers(e){let t=s=>{let{isArchived:i,isDraft:o,fieldData:r}=s;return!i&&!o&&r.category===e};this.getGroupOffers({filter:t})}generateOfferData(e){let t=[],s={};return e.forEach(i=>{let{fieldData:{"hotel-or-property-api-id":o,"offer-api-name":r}}=i,l=E(o,r);t.push(l),s[l]=i}),{offerLookup:s,offerMetaData:t}}addHotelToCollection(e,t){if(e)for(let{prop:s,rates:i}of e.data){let o=i;t&&(o=i.filter(l=>{let{title:f}=l.rate,{hid:u}=s;return t.includes(E(u,f))}));let r=o.map(l=>this.createItem(s,l,this.itemTemplateElement));this.listInstance.addItems(r)}}async getGroupOffersData(e){let t=h+"groupOffers"+O(e),i=await(await fetch(t)).json();return i.error||!i.data?null:i}async getCMSOffers(){let e=h+"cmsOffers",s=await(await fetch(e)).json();return s.items?s:null}createItem(e,t,s){let{rate:i,quotation:o}=t,{hid:r,title:l}=e,{image:f,title:u,plain_description:m}=i,{destination:D,slug:d}=L[r],g=s.cloneNode(!0);this.bindOffersMetaData(g,{destination:D,image:f,hotelName:l,title:u,slug:d}),this.bindQuotationData(g,o);let M=g.querySelector(a.moreDetails);return M&&M.addEventListener("click",()=>{let p=g.querySelector(a.offersPopup);if(p){this.bindOffersMetaData(p,{destination:D,image:f,hotelName:l,title:u,slug:d,description:m}),this.bindQuotationData(p,o),p.style.opacity="1",p.style.display="flex";let T=g.querySelector(a.offersPopupClose);T&&T.addEventListener("click",()=>{p.style.opacity="0",p.style.display="none"})}}),g.style.display="flex",g}bindOffersMetaData(e,{destination:t,image:s,hotelName:i,title:o,slug:r,description:l}){let f=e.querySelector(a.destination),u=e.querySelector(a.image),m=e.querySelector(a.hotelName),D=e.querySelector(a.name),d=e.querySelector(a.description),g=e.querySelector(a.hotelLink);f&&(f.textContent=t),u&&(u.src=s?.url),m&&(m.innerHTML=i),D&&(D.innerHTML=o),d&&l&&(d.textContent=l),g&&r&&g.addEventListener("click",()=>{window.location.href=r})}bindQuotationData(e,t){let{pricePerNight:s,currency:i,plainBookLink:o}=t,r=e.querySelector(a.price);r&&(r.innerHTML=s);let l=e.querySelector(a.currency);l&&(l.innerHTML=I[i]);let f=e.querySelector(a.hotelReserveLink);f&&(f.href=o);let u=e.querySelector(a.hotelVillaReserveLink);u&&(u.href=o)}};var P=c=>{let[e]=c,{listInstance:t}=e;return v(t)},v=c=>{let[e]=c.items,t=e.element,s=["gpgua27143","mqsai18593"],i=Object.values(C).filter(r=>!s.includes(r));return new S(c,t,i)};window.fsAttributes=window.fsAttributes||[];window.fsAttributes.push(["cmsfilter",async c=>{await P(c).getGroupCategoryOffers(y["R\xC9SERVEZ T\xD4T"])}]);})();
+"use strict";
+(() => {
+  // src/utils/constants.ts
+  var prefix = "data";
+  var SELECTORS = {
+    apartmentCmsItem: `[${prefix}=apartment-cms-item]`,
+    countryCode: `[${prefix}=country-code]`,
+    startingPriceList: `[${prefix}=starting-price-list]`,
+    price: `[${prefix}=price]`,
+    currency: `[${prefix}=currency]`,
+    beHid: `[${prefix}-be-hid]`,
+    // offers
+    destination: `[${prefix}=destination]`,
+    offersList: `[${prefix}=offers-list]`,
+    listItem: `[${prefix}=list-item]`,
+    image: `[${prefix}=image]`,
+    name: `[${prefix}=name]`,
+    description: `[${prefix}=description]`,
+    hotelName: `[${prefix}=hotel-name]`,
+    hotelLink: `[${prefix}=hotel-link]`,
+    moreDetails: `[${prefix}=more-details]`,
+    offersPopup: `[${prefix}=offers-popup]`,
+    offersPopupClose: `[${prefix}=close-btn]`,
+    hotelReserveLink: `[${prefix}=hotel-reserve-link]`,
+    hotelVillaReserveLink: `[${prefix}=hotel-villa-reserve-link]`,
+    languageDropdown: `[${prefix}=language-dropdown]`,
+    loadingSpinner: `[${prefix}=loading-spinner]`,
+    cmsLoadEmptyState: `[fs-cmsload-element=empty]`,
+    startingfromItem: (id) => `[${prefix}-be-hid=${id}]`
+  };
+  var BE_HID_TO_SNIPPET_CODE = {
+    DHDICBeach: "gpgos12767",
+    DHDIJMalanga: "gptro12772",
+    DHDIToubana: "gpsai12770",
+    DHDIMahogany: "gpgos12769",
+    DHDILangleyres: "gpgua27143",
+    DHDIJungle: "mqros18592",
+    DHDIJade: "agste21689",
+    DHDIWINDLAND: "zzzzz25376",
+    DHDILeCapMaison: "lcgro30400",
+    DHDIChastenet: "agste21688",
+    DHDILPSoleil: "mqsai18593",
+    DHDISHANTI: "zzzzz25378",
+    DHDIPavillon: "zzzzz25377",
+    DHDIBELLEMARE: "zzzzz25379",
+    DHDIPrincemaurice: "mupos25678",
+    DHDIANAHITA: "zzzzz25380",
+    DHDISamana: "agstm21687",
+    FRANTHTLGrandCaseBe1: "frsai31536",
+    DHDITInn: "ageng20433",
+    DHDIBWaters: "agcro20496",
+    DHDICuisinartgolf: "gpang25884"
+  };
+  var SNIPPET_CODE_TO_HOTEL = {
+    gpgos12767: {
+      destination: "\xCEles de Guadeloupe",
+      slug: "/hotels-et-villas/creole-beach-hotel-spa"
+    },
+    gptro12772: { destination: "\xCEles de Guadeloupe", slug: "/hotels-et-villas/le-jardin-malanga" },
+    gpsai12770: { destination: "\xCEles de Guadeloupe", slug: "/hotels-et-villas/la-toubana-hotel-spa" },
+    gpgos12769: {
+      destination: "\xCEles de Guadeloupe",
+      slug: "/hotels-et-villas/mahogany-hotel-residence-spa"
+    },
+    gpgua27143: {
+      destination: "\xCEles de Guadeloupe",
+      slug: "/hotels-et-villas/langley-resort-fort-royal"
+    },
+    mqros18592: { destination: "Dominique", slug: "/hotels-et-villas/jungle-bay-dominica" },
+    agste21689: { destination: "Sainte-Lucie", slug: "/hotels-et-villas/jade-mountain" },
+    zzzzz25376: { destination: "Sainte-Lucie", slug: "/hotels-et-villas/windjammer-landing" },
+    lcgro30400: { destination: "Sainte-Lucie", slug: "/hotels-et-villas/cap-maison" },
+    agste21688: { destination: "Sainte-Lucie", slug: "/hotels-et-villas/anse-chastanet" },
+    mqsai18593: { destination: "Martinique", slug: "/hotels-et-villas/plein-soleil" },
+    zzzzz25378: { destination: "ile Maurice", slug: "/hotels-et-villas/shanti-maurice" },
+    zzzzz25377: { destination: "ile Maurice", slug: "/hotels-et-villas/lux-le-morne" },
+    zzzzz25379: { destination: "ile Maurice", slug: "/hotels-et-villas/constance-belle-mare-plage" },
+    mupos25678: { destination: "ile Maurice", slug: "/hotels-et-villas/constance-le-prince-maurice" },
+    zzzzz25380: { destination: "ile Maurice", slug: "/hotels-et-villas/anahita-the-resort" },
+    agstm21687: { destination: "Saint-Martin", slug: "/hotels-et-villas/la-samanna" },
+    frsai31536: { destination: "Saint Martin", slug: "/hotels-et-villas/le-grand-case-beach-club" },
+    ageng20433: { destination: "Antigua", slug: "/hotels-et-villas/the-inn-at-english-harbour" },
+    agcro20496: { destination: "Antigua", slug: "/hotels-et-villas/blue-waters" },
+    gpang25884: {
+      destination: "Anguilla",
+      slug: "/hotels-et-villas/aurora-anguilla-resort-golf-club"
+    }
+  };
+  var CURRENCY_TO_SYMBOL = {
+    AED: "\u062F.\u0625.",
+    AFN: "Af",
+    ALL: "L",
+    AMD: "\u058F",
+    ANG: "\u0192",
+    AOA: "Kz",
+    ARS: "AR$",
+    AUD: "AU$",
+    AWG: "\u0192",
+    AZN: "\u043C\u0430\u043D",
+    BAM: "KM",
+    BBD: "BBD$",
+    BDT: "\u09F3",
+    BGN: "\u043B\u0432.",
+    BHD: "BD",
+    BIF: "FBu",
+    BMD: "$",
+    BND: "B$",
+    BOB: "Bs.",
+    BRL: "R$",
+    BSD: "$",
+    BTN: "Nu.",
+    BWP: "P",
+    BYN: "Br",
+    BZD: "BZ$",
+    CAD: "CA$",
+    CDF: "FC",
+    CHF: "Fr.",
+    CKD: "$",
+    CLP: "CL$",
+    CNY: "CN\xA5",
+    COP: "CO$",
+    CRC: "\u20A1",
+    CUC: "CUC$",
+    CUP: "$MN",
+    CVE: "CV$",
+    CZK: "K\u010D",
+    DJF: "Fdj",
+    DKK: "kr.",
+    DOP: "RD$",
+    DZD: "DA",
+    EGP: "E\xA3",
+    EHP: "Ptas.",
+    ERN: "Nkf",
+    ETB: "Br",
+    EUR: "\u20AC",
+    FJD: "FJ$",
+    FKP: "FK\xA3",
+    FOK: "kr",
+    GBP: "\xA3",
+    GEL: "\u20BE",
+    GGP: "\xA3",
+    GHS: "GH\u20B5",
+    GIP: "\xA3",
+    GMD: "D",
+    GNF: "FG",
+    GTQ: "Q",
+    GYD: "G$",
+    HKD: "HK$",
+    HNL: "L",
+    HRK: "kn",
+    HTG: "G",
+    HUF: "Ft",
+    IDR: "Rp",
+    ILS: "\u20AA",
+    IMP: "\xA3",
+    INR: "Rs.",
+    IQD: "\u062F.\u0639.",
+    IRR: "\uFDFC",
+    ISK: "kr",
+    JEP: "\xA3",
+    JMD: "J$",
+    JOD: "JD",
+    JPY: "\xA5",
+    KES: "KSh",
+    KGS: "\u0441",
+    KHR: "\u17DB",
+    KID: "$",
+    KMF: "CF",
+    KPW: "\u20A9",
+    KRW: "\u20A9",
+    KWD: "KD",
+    KYD: "CI$",
+    KZT: "\u20B8",
+    LAK: "\u20ADN",
+    LBP: "LL.",
+    LKR: "Rs.",
+    LRD: "L$",
+    LSL: "L",
+    LYD: "LD",
+    MAD: "DH",
+    MDL: "L",
+    MGA: "Ar",
+    MKD: "den",
+    MMK: "Ks",
+    MNT: "\u20AE",
+    MOP: "MOP$",
+    MRU: "UM",
+    MUR: "Rs.",
+    MVR: "MRf",
+    MWK: "MK",
+    MXN: "MX$",
+    MYR: "RM",
+    MZN: "MTn",
+    NAD: "N$",
+    NGN: "\u20A6",
+    NIO: "C$",
+    NOK: "kr",
+    NPR: "Rs.",
+    NZD: "NZ$",
+    OMR: "OR",
+    PAB: "B/.",
+    PEN: "S/.",
+    PGK: "K",
+    PHP: "\u20B1",
+    PKR: "Rs.",
+    PLN: "z\u0142",
+    PND: "$",
+    PRB: "\u0440.",
+    PYG: "\u20B2",
+    QAR: "QR",
+    RON: "L",
+    RSD: "din",
+    RUB: "\u20BD",
+    RWF: "FRw",
+    SAR: "SR",
+    SBD: "SI$",
+    SCR: "Rs.",
+    SDG: "\xA3SD",
+    SEK: "kr",
+    SGD: "S$",
+    SHP: "\xA3",
+    SLL: "Le",
+    SLS: "Sl",
+    SOS: "Sh.So.",
+    SRD: "Sr$",
+    SSP: "SS\xA3",
+    STN: "Db",
+    SVC: "\u20A1",
+    SYP: "LS",
+    SZL: "L",
+    THB: "\u0E3F",
+    TJS: "SM",
+    TMT: "m.",
+    TND: "DT",
+    TOP: "T$",
+    TRY: "TL",
+    TTD: "TT$",
+    TVD: "$",
+    TWD: "NT$",
+    TZS: "TSh",
+    UAH: "\u20B4",
+    UGX: "USh",
+    USD: "$",
+    UYU: "$U",
+    UZS: "\u0441\u0443\u043C",
+    VED: "Bs.",
+    VES: "Bs.F",
+    VND: "\u20AB",
+    VUV: "VT",
+    WST: "T",
+    XAF: "Fr",
+    XCD: "$",
+    XOF: "\u20A3",
+    XPF: "\u20A3",
+    YER: "YR",
+    ZAR: "R",
+    ZMW: "ZK",
+    ZWB: "",
+    ZWL: "Z$",
+    Abkhazia: "",
+    Artsakh: "\u0564\u0580."
+  };
+  var LANG_TO_LOCALE = {
+    it: "it_IT",
+    es: "es_ES",
+    fr: "fr_FR",
+    en: "en_GB"
+  };
+  var OFFER_CATEGORIES = {
+    "DERNI\xC8RE MINUTE": "735fe5e0858671cf3a5c14cbcc2470fe",
+    "R\xC9SERVEZ T\xD4T": "c5abb23caf056891f3902ff42ae2f9e0"
+  };
+  var apiBaseUrl = "https://deshotelsetdesiles.ccordier.workers.dev/";
+
+  // src/utils/buildQueryParams.ts
+  var buildQueryParams = (queryParams) => {
+    let url = "?";
+    for (const [key, value] of Object.entries(queryParams)) {
+      if (value) {
+        url += `${key}=${value}&`;
+      }
+    }
+    return url;
+  };
+
+  // src/utils/utils.ts
+  var listenForLanguageChange = () => {
+    const languageDropdown = document.querySelector(SELECTORS.languageDropdown);
+    const languageLinks = languageDropdown?.querySelectorAll("a");
+    languageLinks?.forEach((link) => {
+      link.addEventListener("click", () => {
+      });
+    });
+  };
+  var getLocale = () => {
+    const lang = localStorage.getItem("wglang") || "fr";
+    return LANG_TO_LOCALE[lang];
+  };
+  var offerSlug = (hotelId, offerName) => {
+    return `${hotelId.toLowerCase()}-${offerName.toLowerCase()}`;
+  };
+
+  // src/utils/Offers.ts
+  var Offers = class {
+    constructor(listInstance, itemTemplateElement, hotelsIds) {
+      this.listInstance = listInstance;
+      this.itemTemplateElement = itemTemplateElement;
+      const midPoint = 2;
+      const secondHalf = hotelsIds.splice(midPoint);
+      this.hotelsIds = [hotelsIds, secondHalf];
+      listInstance.clearItems();
+      listenForLanguageChange();
+      this.loadingSpinner = document.querySelector(SELECTORS.loadingSpinner);
+      const cmsLoadEmptyState = document.querySelector(SELECTORS.cmsLoadEmptyState);
+      if (cmsLoadEmptyState) {
+        setTimeout(() => {
+          cmsLoadEmptyState.style.display = "none";
+        }, 200);
+      }
+    }
+    /**
+     * Retrieve hotel offer for given hotel IDs
+     * @param locale to query the data with
+     */
+    async getGroupOffers(options) {
+      const { clearItems = true, filter } = options || {};
+      if (clearItems)
+        this.listInstance.clearItems();
+      const cmsOffersData = await this.getCMSOffers();
+      if (!cmsOffersData)
+        return;
+      const filteredOffers = cmsOffersData.items.filter(filter || (() => true));
+      const {
+        offerLookup,
+        offerMetaData
+      } = this.generateOfferData(filteredOffers);
+      for (const hotelgroupIds of this.hotelsIds) {
+        const hids = hotelgroupIds.join(",");
+        const hotelOffersData = await this.getGroupOffersData({
+          hids,
+          locale: getLocale()
+        });
+        this.addHotelToCollection(hotelOffersData, filter ? offerMetaData : void 0);
+      }
+      if (this.loadingSpinner)
+        this.loadingSpinner.style.display = "none";
+    }
+    /**
+     * Retrieve hotel offer for given offer category
+     * @param locale to query the data with
+     */
+    async getGroupCategoryOffers(categoryId) {
+      const filter = (value) => {
+        const { isArchived, isDraft, fieldData } = value;
+        return !isArchived && !isDraft && fieldData.category === categoryId;
+      };
+      this.getGroupOffers({ filter });
+    }
+    /**
+     * Retrieve hotel offer for given offer theme
+     * @param locale to query the data with
+     */
+    async getGroupThemOffers(themeId) {
+      const filter = (value) => {
+        const { isArchived, isDraft, fieldData } = value;
+        return !isArchived && !isDraft && !!fieldData.thematiques?.includes(themeId);
+      };
+      this.getGroupOffers({ filter });
+    }
+    /**
+     *
+     * @param filteredOffers to generate offer data from
+     * @returns
+     */
+    generateOfferData(filteredOffers) {
+      const offerMetaData = [];
+      const offerLookup = {};
+      filteredOffers.forEach((offer) => {
+        const {
+          fieldData: { "hotel-or-property-api-id": hotelId, "offer-api-name": name }
+        } = offer;
+        const slug = offerSlug(hotelId, name);
+        offerMetaData.push(slug);
+        offerLookup[slug] = offer;
+      });
+      return { offerLookup, offerMetaData };
+    }
+    /**
+     *
+     * @param hotelOffersData to add to the collection
+     */
+    addHotelToCollection(hotelOffersData, offerMetaData) {
+      if (hotelOffersData) {
+        for (const { prop, rates } of hotelOffersData.data) {
+          let filteredRates = rates;
+          if (offerMetaData) {
+            filteredRates = rates.filter((rate) => {
+              const { title } = rate.rate;
+              const { hid } = prop;
+              return offerMetaData.includes(offerSlug(hid, title));
+            });
+          }
+          const items = filteredRates.map(
+            (item) => this.createItem(prop, item, this.itemTemplateElement)
+          );
+          this.listInstance.addItems(items);
+        }
+      }
+    }
+    /**
+     *
+     * @param queryParams to include as part of query for the request
+     * @returns Starting price data
+     */
+    async getGroupOffersData(queryParams) {
+      const url = apiBaseUrl + "groupOffers" + buildQueryParams(queryParams);
+      const response = await fetch(url);
+      const body = await response.json();
+      if (body.error || !body.data)
+        return null;
+      return body;
+    }
+    /**
+     *
+     * @param queryParams to include as part of query for the request
+     * @returns Starting price data
+     */
+    async getCMSOffers() {
+      const url = apiBaseUrl + "cmsOffers";
+      const response = await fetch(url);
+      const body = await response.json();
+      if (!body.items)
+        return null;
+      return body;
+    }
+    /**
+     * Creates an item from the template element.
+     * @param rate The Rate data to create the item from.
+     * @param templateElement The template element.
+     *
+     * @returns A new Collection Item element.
+     */
+    createItem(offerProperty, rate, templateElement) {
+      const { rate: rateData, quotation } = rate;
+      const { hid, title: hotelName } = offerProperty;
+      const { image, title, plain_description } = rateData;
+      const { destination, slug } = SNIPPET_CODE_TO_HOTEL[hid];
+      const newItem = templateElement.cloneNode(true);
+      this.bindOffersMetaData(newItem, { destination, image, hotelName, title, slug });
+      this.bindQuotationData(newItem, quotation);
+      const moreDetails = newItem.querySelector(SELECTORS.moreDetails);
+      if (moreDetails) {
+        moreDetails.addEventListener("click", () => {
+          const offersPopupEl = newItem.querySelector(SELECTORS.offersPopup);
+          if (offersPopupEl) {
+            this.bindOffersMetaData(offersPopupEl, {
+              destination,
+              image,
+              hotelName,
+              title,
+              slug,
+              description: plain_description
+            });
+            this.bindQuotationData(offersPopupEl, quotation);
+            offersPopupEl.style["opacity"] = "1";
+            offersPopupEl.style["display"] = "flex";
+            const popupCloseBtn = newItem.querySelector(SELECTORS.offersPopupClose);
+            if (popupCloseBtn) {
+              popupCloseBtn.addEventListener("click", () => {
+                offersPopupEl.style["opacity"] = "0";
+                offersPopupEl.style["display"] = "none";
+              });
+            }
+          }
+        });
+      }
+      newItem.style.display = "flex";
+      return newItem;
+    }
+    /**
+     *
+     * @param container for data item
+     * @param destination for offer
+     * @param image for offer
+     * @param hotelName for hotel
+     * @param title for offer
+     */
+    bindOffersMetaData(container, {
+      destination,
+      image,
+      hotelName,
+      title,
+      slug,
+      description
+    }) {
+      const destinationEl = container.querySelector(SELECTORS.destination);
+      const imageEl = container.querySelector(SELECTORS.image);
+      const hotelNameEl = container.querySelector(SELECTORS.hotelName);
+      const nameEl = container.querySelector(SELECTORS.name);
+      const descriptionEl = container.querySelector(SELECTORS.description);
+      const hotelLinkEl = container.querySelector(SELECTORS.hotelLink);
+      if (destinationEl)
+        destinationEl.textContent = destination;
+      if (imageEl)
+        imageEl.src = image?.url;
+      if (hotelNameEl)
+        hotelNameEl.innerHTML = hotelName;
+      if (nameEl)
+        nameEl.innerHTML = title;
+      if (descriptionEl && description)
+        descriptionEl.textContent = description;
+      if (hotelLinkEl && slug) {
+        hotelLinkEl.addEventListener("click", () => {
+          window.location.href = slug;
+        });
+      }
+    }
+    /**
+     *
+     * @param quotation data to bind
+     * @param container for data items
+     */
+    bindQuotationData(container, quotation) {
+      const { pricePerNight, currency, plainBookLink } = quotation;
+      const priceEl = container.querySelector(SELECTORS.price);
+      if (priceEl)
+        priceEl.innerHTML = pricePerNight;
+      const currencyEl = container.querySelector(SELECTORS.currency);
+      if (currencyEl)
+        currencyEl.innerHTML = CURRENCY_TO_SYMBOL[currency];
+      const hotelReserveEl = container.querySelector(SELECTORS.hotelReserveLink);
+      if (hotelReserveEl)
+        hotelReserveEl.href = plainBookLink;
+      const hotelVillaReserveEl = container.querySelector(
+        SELECTORS.hotelVillaReserveLink
+      );
+      if (hotelVillaReserveEl)
+        hotelVillaReserveEl.href = plainBookLink;
+    }
+  };
+
+  // src/utils/createOffersInstance.ts
+  var createOffersInstance = (filtersInstances) => {
+    const [filtersInstance] = filtersInstances;
+    const { listInstance } = filtersInstance;
+    return createOfferForList(listInstance);
+  };
+  var createOfferForList = (listInstance) => {
+    const [firstItem] = listInstance.items;
+    const itemTemplateElement = firstItem.element;
+    const hotelsToExlude = ["gpgua27143", "mqsai18593"];
+    const hotelIDs = Object.values(BE_HID_TO_SNIPPET_CODE).filter(
+      (id) => !hotelsToExlude.includes(id)
+    );
+    const offers = new Offers(listInstance, itemTemplateElement, hotelIDs);
+    return offers;
+  };
+
+  // src/pages/OffersReservez.ts
+  window.fsAttributes = window.fsAttributes || [];
+  window.fsAttributes.push([
+    "cmsfilter",
+    async (filtersInstances) => {
+      const offers = createOffersInstance(filtersInstances);
+      await offers.getGroupCategoryOffers(OFFER_CATEGORIES["R\xC9SERVEZ T\xD4T"]);
+    }
+  ]);
+})();
+//# sourceMappingURL=OffersReservez.js.map

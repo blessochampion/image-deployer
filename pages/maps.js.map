@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../bin/live-reload.js", "../../src/pages/maps.ts"],
+  "sourcesContent": ["new EventSource(`${SERVE_ORIGIN}/esbuild`).addEventListener('change', () => location.reload());\n", "/**\n * Callback function that is called when the map library is ready on the apartment page.\n */\nwindow.mapLibReadyHandler = () => {\n  console.log('Map library is ready');\n  // Do something with the map library\n};\nconsole.log('Map library is ready - override');\n"],
+  "mappings": ";;;AAAA,MAAI,YAAY,GAAG,uBAAY,UAAU,EAAE,iBAAiB,UAAU,MAAM,SAAS,OAAO,CAAC;;;ACG7F,SAAO,qBAAqB,MAAM;AAChC,YAAQ,IAAI,sBAAsB;AAAA,EAEpC;AACA,UAAQ,IAAI,iCAAiC;",
+  "names": []
+}

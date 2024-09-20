@@ -115,7 +115,7 @@ function updateSelection(d, nodes){
             
         })
     }, exit=>{
-        exit.style("display", "none");
+        exit.remove()
     });
 }
 

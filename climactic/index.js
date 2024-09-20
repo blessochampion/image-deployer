@@ -5,7 +5,6 @@ const margin = {top: 20, right: 20, bottom: 30, left: 40};
 const defaultMargin = 1;
 const maxRadius = 120;
 const minRadius = 80;
-const baseURL = "http://127.0.0.1:49302/"
 container.select('img').remove();
 const tooltip = d3.create('div').attr('id','tooltip').classed('tooltip', true)
 document.body.appendChild(tooltip.node());
@@ -27,7 +26,11 @@ const dataLibrary = {
   geography: {},
   companies: {}
 }
-
+/**
+ * Notes
+ * - Reset button
+ * - 
+ */
 /**
  * DROPDOWN SECTION
  */
@@ -73,11 +76,6 @@ dropDownEffect(regionDropdown, (selected)=>{
     .attr("style", "max-width: 100%; height: auto;");
 
 const g = svg.append("g")
-
-const retrieveData = async () => {
-    const data = await d3.json(`${baseURL}index.json`);
-    return data;
-}
 
 
 const updateRadius = (data) => {

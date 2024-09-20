@@ -1,0 +1,64 @@
+.ai-info_wrapper{
+    background: #f1e2d9cc !important;
+    padding: 16px;
+}
+
+.ai-body_pip-wrapper-mob{
+    bottom: 80px !important;
+}
+
+ .ai-body_pip-window {
+     margin: auto;
+ }
+
+
+ .ai-body_pip-wrapper{
+    display: flex !important;
+    justify-content: center !important;
+ }
+
+/* The email modal should be hidden by default */
+.modal_ai-email{
+    /* display: none !important; */
+}
+
+#ai-info-popup{
+    display: none !important;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 8px;
+    background: white;
+    border: 1px solid #f1e2d9;
+    border-radius: 100vh;
+    pointer-events: none;
+    padding: 0 1rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.fade-node{
+    opacity: 0.4;
+    transition: opacity 0.2s ease;
+    stroke:'grey'
+}
+.unfade-node{
+    opacity: 1;
+    transition: opacity 0.2s ease;
+    stroke:'red'
+}
+
+.fade-link {
+    opacity: 0.15;
+    transition: opacity 0.2s ease;
+    stroke: 'grey'
+}
+
+.unfade-link {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+    stroke: 'red'
+}

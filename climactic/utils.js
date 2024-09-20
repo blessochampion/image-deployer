@@ -21,7 +21,7 @@ function checkBounds(d){
   if (d.y > width) d.y = height;
 }
 
-function updateSelection(d, nodes){
+function updateSelection(d, nodes, dataLibrary){
     // get the #ai-info-popup
     const popup = document.getElementById("ai-info-popup");
     // set the display to block
@@ -47,50 +47,10 @@ function updateSelection(d, nodes){
     // get the items with the same group as d
     const relatedItems = nodes.filter(node => node.group === d.group && !node.root);
 
-    const items = d3.selectAll('.ai-info_badge-content');
-    const firstItem = d3.select('.ai-info_badge-content').node();
+    const items = d3.selectAll('.ai-info_badge-wrapper');
 
-    items.data(relatedItems).join(enter=>{
-         enter.each(function(d, i) {
-            // if (firstItem) {
-            //     // Clone the first item
-            //     const clonedItem = firstItem.cloneNode(true);
-                
-            //     // Append the cloned item to the current "enter" selection
-            //     d3.select(this).node().appendChild(clonedItem);
-                
-            //     // Update the cloned item with new data (image src in this case)
-            //     d3.select(this).select('.ai-info_badge-logo')
-            //         .attr("src", d.image);
-            // }
-            d3.select('.ai-info_badge-grid')
-            .append('div')
-            .attr('id', firstItem.getAttribute('id'))
-            .datum(d)
-            .html(firstItem.innerHTML)
-            .classed('ai-info_badge-content', true)
-            .style("display", "block")
-            .on("click", (event, d) => {
-            // stop the propagation of the event
-            // update the logo
-            const logoWrapper = d3.select('.ai-info_card-logo-wrapper').select('img');
-            logoWrapper.attr("src", d.image);
-
-            // update the card ai-info_card-paragraph
-            const paragraph = d3.select('.ai-info_card-paragraph');
-            console.log(d)
-            paragraph.html(d.data.Company);
-
-            // update the card ai-info_card-paragraph inside the second ai-info_card-info-content
-            const aiParagraphs = d3.selectAll('.ai-info_card-info-content').select('.ai-info_card-paragraph');
-            // pick the second paragraph
-            const secondParagraph = aiParagraphs.filter((d, i)=>i===1);
-            secondParagraph.html(d.data['Company Overview']);
-            
-        })
-            
-        });
-    }, update=>{
+    items.data(relatedItems).join(enter=>{}, update=>{
+        update.attr('node-id',d=> d.id)
         const image = update.select('.ai-info_badge-logo');
         image.attr("src", d=> d.image);
         const text = update.select('.ai-info_badge-text-content').select('div');
@@ -107,6 +67,52 @@ function updateSelection(d, nodes){
             console.log(d)
             paragraph.html(d.data.Company);
 
+            // company name
+            const companyName = d3.select('.ai-info_card-company-name');
+            companyName.html(`&nbsp;${d.data.Company}`);
+
+            // update the link
+            const link = d3.select('.ai-info_card-text-link');
+            link.attr("href", d.data['Website']);
+            link.attr("target", "_blank");
+
+            // update capabilities tags
+            const capabilitiesTaglist = d3.select('.ai-info_tag-wrapper');
+            const capabilities = d.data['AI Technology'].map(d=>dataLibrary.technology[d]['Technology'])
+            capabilitiesTaglist.selectAll('div').data(capabilities).join(enter=>{
+                enter.append('div').html(d=>d).classed('ai-info_tag-cap', true)
+            }, update=>{
+                update.html(d=>d)
+            }, exit=>{
+                exit.remove()
+            })
+
+            // sector tags
+            const sectorTaglist = d3.select( d3.selectAll('.ai-info_tag-sec').node().parentNode);
+            const sectors = d.data['Sector Tags'].map(d=>dataLibrary.sector[d]['Sector'])
+            sectorTaglist.selectAll('div').data(sectors).join(enter=>{
+                enter.append('div').html(d=>d).classed('ai-info_tag-sector', true)
+            }, update=>{
+                update.html(d=>d)
+            }, exit=>{
+                exit.remove()
+            })
+
+            // regions
+            const regionTaglist = d3.select( d3.selectAll('.ai-info_tag-reg').node().parentNode);
+            const regions = d.data['Geography'].map(d=>dataLibrary.geography[d]['Geography'])
+            regionTaglist.selectAll('div').data(regions).join(enter=>{
+                enter.append('div').html(d=>d).classed('ai-info_tag-region', true)
+            }
+            , update=>{
+                update.html(d=>d)
+            }
+            , exit=>{
+                exit.remove()
+            }
+            )
+
+
             // update the card ai-info_card-paragraph inside the second ai-info_card-info-content
             const aiParagraphs = d3.selectAll('.ai-info_card-info-content').select('.ai-info_card-paragraph');
             // pick the second paragraph
@@ -114,9 +120,15 @@ function updateSelection(d, nodes){
             secondParagraph.html(d.data['Company Overview']);
             
         })
+        // select the item with the d's node id and click it
+       
     }, exit=>{
         exit.remove()
     });
+
+    // select element with the node id and click it
+    const selectedNode = document.querySelector(`[node-id="${d.id}"]`);
+    selectedNode.click();
 }
 
 

@@ -51,6 +51,7 @@ function updateSelection(d, nodes, dataLibrary){
 
     items.data(relatedItems).join(enter=>{}, update=>{
         update.attr('node-id',d=> d.id)
+        .style('display', 'block')
         const image = update.select('.ai-info_badge-logo');
         image.attr("src", d=> d.image);
         const text = update.select('.ai-info_badge-text-content').select('div');
@@ -123,7 +124,8 @@ function updateSelection(d, nodes, dataLibrary){
         // select the item with the d's node id and click it
        
     }, exit=>{
-        exit.remove()
+        exit.style('display', 'none')
+        //exit.remove()
     });
 
     // select element with the node id and click it

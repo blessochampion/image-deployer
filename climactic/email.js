@@ -9,13 +9,13 @@ const start = async () => {
         modalAIEmail.style += ";display:none !important";
         return;
     }else{
-        setTimeout(()=>{
-            modalAIEmail.style += ";display:flex !important"
-            modalAIEmail.style.opacity = 0
-            modalAIEmail.style.transition = "opacity 2s"
-            modalAIEmail.style.opacity = 1
+        // setTimeout(()=>{
+        //     modalAIEmail.style += ";display:flex !important"
+        //     modalAIEmail.style.opacity = 0
+        //     modalAIEmail.style.transition = "opacity 2s"
+        //     modalAIEmail.style.opacity = 1
             
-        }, 8000);
+        // }, 8000);
     }
 
     // get the email fields

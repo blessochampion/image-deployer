@@ -5,7 +5,7 @@ const margin = {top: 20, right: 20, bottom: 30, left: 40};
 const defaultMargin = 1;
 const maxRadius = 120;
 const minRadius = 80;
-const baseURL = "http://127.0.0.1:49302/"
+
 container.select('img').remove();
 const tooltip = d3.create('div').attr('id','tooltip').classed('tooltip', true)
 document.body.appendChild(tooltip.node());
@@ -91,11 +91,6 @@ dropDownEffect(regionDropdown, (selected)=>{
   d3.select('.ai-filters_dropdown-list.w-dropdown-list.w--open').classed('w--open', false)
 })
 const g = svg.append("g")
-
-const retrieveData = async () => {
-    const data = await d3.json(`${baseURL}index.json`);
-    return data;
-}
 
 
 const updateRadius = (data) => {
@@ -201,7 +196,7 @@ const drawMap = (data) => {
     node.on("click", (event, d) => {
        tooltip.transition().duration(200).style("opacity", 0);  // Hide the tooltip
         // stop the propagation of the event
-        updateSelection(d, nodes, dataLibrary);
+        updateSelection(d, nodes, dataLibrary,d.group,true);
     })
 
     const div = node.append('foreignObject')

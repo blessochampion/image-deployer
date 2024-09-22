@@ -29,7 +29,7 @@ function checkBounds(d){
   if (d.y > width) d.y = height;
 }
 
-function updateSelection(d, nodes, dataLibrary){
+function updateSelection(d, nodes, dataLibrary,titleText, animate = false, filter = node => node.group === d.group && !node.root){
      if(!userExists()&& !userEmailDisplayedAlready()){
         const modalAIEmail = document.querySelector(SELECTORS.modalAIEmail);
 
@@ -45,17 +45,19 @@ function updateSelection(d, nodes, dataLibrary){
      // disable scrolling
     document.body.style.overflow = "hidden";
 
-
-    // get the #ai-info-popup
+     // get the #ai-info-popup
     const popup = document.getElementById("ai-info-popup");
     // set the display to block
     popup.style += ";display:block !important";
-    // animate the opacity from 0 to 1
-    popup.animate([{opacity: 0}, {opacity: 1}], {duration: 800, fill: "forwards"});
+
+    if(animate){
+        // animate the opacity from 0 to 1
+        popup.animate([{opacity: 0}, {opacity: 1}], {duration: 800, fill: "forwards"});
+    }
 
     // update the title with the group. #ai-info-selected-section
     const title = document.getElementById("ai-info-selected-section");
-    title.innerHTML = d.group;
+    title.innerHTML = titleText;
 
     // close the popup when the close button is clicked. icon with class .ai-info_card-close-wrapper
     const close = document.querySelector(".ai-info_card-close-wrapper");
@@ -71,7 +73,7 @@ function updateSelection(d, nodes, dataLibrary){
     });   
 
     // get the items with the same group as d
-    const relatedItems = nodes.filter(node => node.group === d.group && !node.root);
+    const relatedItems = nodes.filter(filter);
 
 
     const items = d3.selectAll('.ai-info_badge-content').data(relatedItems)
@@ -112,34 +114,46 @@ function updateSelection(d, nodes, dataLibrary){
 
             // update capabilities tags
             const capabilitiesTaglist = d3.select('.ai-info_tag-wrapper');
-            const capabilities = d.data['AI Technology'].map(d=>dataLibrary.technology[d]['Technology'])
+            const capabilities = d.data['AI Technology'].map(d=>({id:d, name: dataLibrary.technology[d]['Technology']}))
             capabilitiesTaglist.selectAll('div').data(capabilities).join(enter=>{
-                enter.append('div').html(d=>d).classed('ai-info_tag-cap', true)
+                enter.append('div').html(d=>d.name).classed('ai-info_tag-cap', true)
             }, update=>{
-                update.html(d=>d)
+                update.html(c=>c.name).on("click", (event, e)=>{
+                    const matchingCompanies =  dataLibrary.technology[e.id]['AI x Climate Tech Companies'];
+                    const filter = node=>matchingCompanies.includes(node.comanyId);
+                    updateSelection(d, nodes, dataLibrary, e.name,false, filter)
+                })
             }, exit=>{
                 exit.remove()
             })
 
             // sector tags
             const sectorTaglist = d3.select( d3.selectAll('.ai-info_tag-sec').node().parentNode);
-            const sectors = d.data['Sector Tags'].map(d=>dataLibrary.sector[d]['Sector'])
+            const sectors = d.data['Sector Tags'].map(d=>({id:d, name: dataLibrary.sector[d]['Sector']}))
             sectorTaglist.selectAll('div').data(sectors).join(enter=>{
-                enter.append('div').html(d=>d).classed('ai-info_tag-sector', true)
+                enter.append('div').html(d=>d.name).classed('ai-info_tag-sector', true) 
             }, update=>{
-                update.html(d=>d)
+                update.html(d=>d.name).on("click", (event, e)=>{
+                    const matchingCompanies =  dataLibrary.sector[e.id]['AI x Climate Tech Companies'];
+                    const filter = node=>matchingCompanies.includes(node.comanyId);
+                    updateSelection(d, nodes, dataLibrary, e.name,false, filter)
+                })
             }, exit=>{
                 exit.remove()
             })
 
             // regions
             const regionTaglist = d3.select( d3.selectAll('.ai-info_tag-reg').node().parentNode);
-            const regions = d.data['Geography'].map(d=>dataLibrary.geography[d]['Geography'])
+            const regions = d.data['Geography'].map(d=>({id:d, name: dataLibrary.geography[d]['Geography']}))
             regionTaglist.selectAll('div').data(regions).join(enter=>{
-                enter.append('div').html(d=>d).classed('ai-info_tag-region', true)
+                enter.append('div').html(d=>d.name).classed('ai-info_tag-region', true)
             }
             , update=>{
-                update.html(d=>d)
+                update.html(d=>d.name).on("click", (event, e)=>{
+                    const matchingCompanies =  dataLibrary.geography[e.id]['AI x Climate Tech Companies'];
+                    const filter = node=>matchingCompanies.includes(node.comanyId);
+                    updateSelection(d, nodes, dataLibrary, e.name,false, filter)
+                })
             }
             , exit=>{
                 exit.remove()
@@ -277,6 +291,7 @@ const extractNodes = (dataLibrary)=>{
                 const childNode = {
                     root: false,    
                     id: `${group}-${companyId}`,
+                    comanyId: companyId,
                     data: companyData,
                     radius: 2,
                     image,

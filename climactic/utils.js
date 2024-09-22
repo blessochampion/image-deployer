@@ -1,3 +1,9 @@
+const typeMap = {
+      'image/jpeg': '.jpeg',
+      'image/png': '.png',
+      'image/svg+xml': '.svg',
+    }
+
 function listenForBodyClick(){
     // listen for a click on the body
     document.body.addEventListener("click", (event) => {
@@ -287,14 +293,17 @@ const extractNodes = (dataLibrary)=>{
         companies.forEach((companyId)=>{
             const companyData = dataLibrary.companies[companyId];
             if( companyData && companyData['Logo'] && companyData['Logo'].length){
-                const image = companyData['Logo'][0]['url'];
+                const logo = companyData['Logo'];
+                const type = logo[0].type;
+                const ext = typeMap[type]
+
                 const childNode = {
                     root: false,    
                     id: `${group}-${companyId}`,
                     comanyId: companyId,
                     data: companyData,
                     radius: 2,
-                    image,
+                    image: `https://cdn.jsdelivr.net/gh/blessochampion/image-deployer/images/${companyId + ext}` ,
                     group,
                 }
                 graph.nodes.push(childNode);

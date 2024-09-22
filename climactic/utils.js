@@ -13,6 +13,14 @@ function listenForBodyClick(){
     });
 }
 
+const userExists =() => {
+    const users = JSON.parse(localStorage.getItem("USER_DATA")||"{}");
+    return users && users.email;
+}
+
+const userEmailDisplayedAlready = () => {
+    return localStorage.getItem("USER_EMAIL_DISPLAYED") !== null;
+}
 
 function checkBounds(d){
   if (d.x < 0) d.x = 0;
@@ -22,6 +30,22 @@ function checkBounds(d){
 }
 
 function updateSelection(d, nodes, dataLibrary){
+     if(!userExists()&& !userEmailDisplayedAlready()){
+        const modalAIEmail = document.querySelector(SELECTORS.modalAIEmail);
+
+        modalAIEmail.style += ";display:flex !important"
+        modalAIEmail.style.opacity = 0
+        modalAIEmail.style.transition = "opacity 2s"
+        modalAIEmail.style.opacity = 1
+
+        localStorage.setItem("USER_EMAIL_DISPLAYED", true);
+        return 
+     }
+
+     // disable scrolling
+    document.body.style.overflow = "hidden";
+
+
     // get the #ai-info-popup
     const popup = document.getElementById("ai-info-popup");
     // set the display to block
@@ -35,6 +59,7 @@ function updateSelection(d, nodes, dataLibrary){
 
     // close the popup when the close button is clicked. icon with class .ai-info_card-close-wrapper
     const close = document.querySelector(".ai-info_card-close-wrapper");
+
     close.addEventListener("click", (event) => {
         // animate the opacity from 1 to 0
         popup.animate([{opacity: 1}, {opacity: 0}], {duration: 400, fill: "forwards"});
@@ -42,21 +67,29 @@ function updateSelection(d, nodes, dataLibrary){
         setTimeout(() => {
             popup.style.display = "none";
         }, 400);
+        document.body.style.overflow = "auto";
     });   
 
     // get the items with the same group as d
     const relatedItems = nodes.filter(node => node.group === d.group && !node.root);
 
-    const items = d3.selectAll('.ai-info_badge-wrapper');
 
-    items.data(relatedItems).join(enter=>{}, update=>{
-        update.attr('node-id',d=> d.id)
-        .style('display', 'block')
+    const items = d3.selectAll('.ai-info_badge-content').data(relatedItems)
+    
+    items.join(enter=>{
+
+    }, update=>{
+        //select the wrapper
+        update.select('.ai-info_badge-wrapper').attr('node-id',d=> d.id)
+        update.attr('id',d=> d.id)
+
+        // d3.select(update.node().parentNode).style('display', 'block')
         const image = update.select('.ai-info_badge-logo');
         image.attr("src", d=> d.image);
         const text = update.select('.ai-info_badge-text-content').select('div');
         text.html(d=> d.data.Company)
         update.style("display", "block");
+
         update.on("click", (event, d) => {
             // stop the propagation of the event
             // update the logo
@@ -65,7 +98,6 @@ function updateSelection(d, nodes, dataLibrary){
 
             // update the card ai-info_card-paragraph
             const paragraph = d3.select('.ai-info_card-paragraph');
-            console.log(d)
             paragraph.html(d.data.Company);
 
             // company name
@@ -76,6 +108,7 @@ function updateSelection(d, nodes, dataLibrary){
             const link = d3.select('.ai-info_card-text-link');
             link.attr("href", d.data['Website']);
             link.attr("target", "_blank");
+            link.html(d.data['Website']);
 
             // update capabilities tags
             const capabilitiesTaglist = d3.select('.ai-info_tag-wrapper');
@@ -124,9 +157,21 @@ function updateSelection(d, nodes, dataLibrary){
         // select the item with the d's node id and click it
        
     }, exit=>{
-        exit.style('display', 'none')
-        //exit.remove()
-    });
+       exit.node().style.display = "none";
+    })
+    items.exit().each((d, i, nodes)=>{
+        nodes[i].style.display = "none";
+    })
+
+    //   items.enter().append(()=>{
+    //     console.log("appending")
+    //     const firstItem = d3.select('.ai-info_badge-content');
+    //     const clone = firstItem.node().cloneNode(true);
+    //     clone.style.display = "block";
+    //     const grid = document.querySelector('.ai-info_badge-grid')
+    //     grid.append(clone)
+    //     return clone;
+    // })
 
     // select element with the node id and click it
     const selectedNode = document.querySelector(`[node-id="${d.id}"]`);
@@ -200,24 +245,15 @@ const dropDownEffect = (container = document, onItemSelected)=>{
 
 
 const extractNodes = (dataLibrary)=>{
-    /**
-     * {
-            "id": "Modelling Decision Making",
-            "image": "Modelling Decision Making",
-            "group": "Modelling Decision Making",
-            "radius": 2,
-            "root": true
-        },
+    const keys =  [{name:'Sector',keyName:"Sector", data: dataLibrary.sector}, {name:'Technology',keyName:"Capability", data: dataLibrary.technology}, {name:'Geography',keyName:"Region" ,data: dataLibrary.geography}]
+    
+    for(const {name, keyName, data} of keys){
+        const graph = {
+                nodes: [],
+            }
 
-        
-     */
-    const graph = {
-        nodes: [],
-    }
-    console.log(dataLibrary.companies)
-    let data =  dataLibrary.technology;
     Object.keys(data).forEach((key, index)=>{
-        const group = data[key]['Technology'];
+        const group = data[key][name];
         const node = {
             root: true,
             id: group,
@@ -228,13 +264,15 @@ const extractNodes = (dataLibrary)=>{
 
         // generate the child nodes based on "AI x Climate Tech Companies"
         let companies = data[key]['AI x Climate Tech Companies'];
-        // pick only the first 12 companies
-        // companies = companies.slice(0, 12);
-        let count = 0;
+   
         node.children = [];
+        let count = 0;
+        
+        if(!companies)return;
+
         companies.forEach((companyId)=>{
             const companyData = dataLibrary.companies[companyId];
-            if(count < 100 && companyData && companyData['Logo'] && companyData['Logo'].length){
+            if( companyData && companyData['Logo'] && companyData['Logo'].length){
                 const image = companyData['Logo'][0]['url'];
                 const childNode = {
                     root: false,    
@@ -253,8 +291,8 @@ const extractNodes = (dataLibrary)=>{
             
         })
     })
-
-    return graph
+    dataLibrary.dataGrouping[keyName] = graph;
+    }
 }
 
 const convertRegion = (regions)=>{

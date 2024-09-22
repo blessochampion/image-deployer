@@ -1,21 +1,11 @@
-const userExists =() => {
-    const users = JSON.parse(localStorage.getItem("USER_DATA")||"{}");
-    return users && users.email;
-}
 
 const start = async () => {
+    // delete the user data from local storage
+    localStorage.removeItem("USER_EMAIL_DISPLAYED");
     const modalAIEmail = document.querySelector(SELECTORS.modalAIEmail);
     if(userExists()){
         modalAIEmail.style += ";display:none !important";
         return;
-    }else{
-        // setTimeout(()=>{
-        //     modalAIEmail.style += ";display:flex !important"
-        //     modalAIEmail.style.opacity = 0
-        //     modalAIEmail.style.transition = "opacity 2s"
-        //     modalAIEmail.style.opacity = 1
-            
-        // }, 8000);
     }
 
     // get the email fields

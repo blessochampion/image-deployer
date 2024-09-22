@@ -22,11 +22,12 @@ if(!dimension.width || !dimension.height){
 const {width: pipWidth, height: pipHeight} = dimension
 const {width: pipParentWidth, height: pipParentHeight} = zoomPipWindow.node().parentNode.getBoundingClientRect()
 
-const dataLibrary = {
+let dataLibrary = {
   sector : {},
   technology :{},
   geography: {},
-  companies: {}
+  companies: {},
+  dataGrouping:{}
 }
 
 
@@ -39,7 +40,8 @@ const dropDownEvent  = new Event('dropdownChange');
 const dropDowns = {
   sector: [],
   capability: [],
-  region: []
+  region: [],
+  filterType: 'Sector'
 }
 
 const resetButton = d3.select('#reset-button');
@@ -103,7 +105,7 @@ const updateRadius = (data) => {
             d.radius = maxRadius;
             return;
         }
-        d.radius = minRadius + 40  //Math.round(minRadius + Math.random() * (maxRadius -minRadius))
+        d.radius = minRadius + 40
     })
 }
 
@@ -150,6 +152,7 @@ let zoom = d3.zoom()
     
 
 const drawMap = (data) => {
+    g.selectAll('*').remove();
     const links = data.links.map(d => ({...d}));
   const nodes = data.nodes.map(d => ({...d}));
 
@@ -286,6 +289,10 @@ const drawMap = (data) => {
             .attr("y1", d => d.source.y)
             .attr("x2", d => d.target.x)
             .attr("y2", d => d.target.y);
+    simulation.on('end', () => {
+      // trigger the dropdown change event
+      window.dispatchEvent(dropDownEvent);
+    });
 
     node.attr("transform", d => `translate(${d.x},${d.y})`);
     root.attr("transform", d => `translate(${d.x - d.width/2},${d.y - d.height/2})`);
@@ -294,7 +301,7 @@ const drawMap = (data) => {
 
     // Reheat the simulation when drag starts, and fix the subject position.
   function dragstarted(event) {
-    if (!event.active) simulation.alphaTarget(0.3).restart();
+    if (!event.active) simulation.alphaTarget(0.05).restart();
     event.subject.fx = event.subject.x;
     event.subject.fy = event.subject.y;
   }
@@ -383,50 +390,78 @@ const drawMap = (data) => {
         .style('stroke-width', 3)
     })
 
+
+
+   setTimeout(() => {
+     // set listners for .ai-toggle_radio-field click event
+      const radioButtons = document.querySelectorAll('.ai-toggle_radio-field');
+      radioButtons.forEach(radio => {
+        radio.addEventListener('click', (event) => { 
+          event.stopPropagation()
+          const filterType = radio.querySelector('span').innerText;
+          if(dropDowns['filterType'] === filterType)return;
+
+          dropDowns['filterType'] = filterType;
+            // window.dispatchEvent(dropDownEvent);
+            startSimulation()
+        })
+      })
+   }, 350);
+
+
 }
 
+const startSimulation =()=>{
+  const data = dataLibrary.dataGrouping[dropDowns.filterType];
+    updateRadius(data.nodes);
+    data.links = generateLinks(data.nodes);
+    drawMap(data);
+}
 
 
 const main = async () => {
     //const data = await retrieveData();
     // retrieve the sector data
-    const sectorData = await fetchAirtableData(SECTOR_TABLE);
-    const sectorDB = {}
-    for(const sector of sectorData){
-        sectorDB[sector.id] = sector.fields;
-    }
-    dataLibrary.sector = sectorDB;
+    // const sectorData = await fetchAirtableData(SECTOR_TABLE);
+    // const sectorDB = {}
+    // for(const sector of sectorData){
+    //     sectorDB[sector.id] = sector.fields;
+    // }
+    // dataLibrary.sector = sectorDB;
 
-    // retrieve the technology data
-    const technologyData = await fetchAirtableData(TECHNOLOGY_TABLE);
-    const technologyDB = {}
-    for(const technology of technologyData){
-        technologyDB[technology.id] = technology.fields;
-    }
-    dataLibrary.technology = technologyDB;
+    // // retrieve the technology data
+    // const technologyData = await fetchAirtableData(TECHNOLOGY_TABLE);
+    // const technologyDB = {}
+    // for(const technology of technologyData){
+    //     technologyDB[technology.id] = technology.fields;
+    // }
+    // dataLibrary.technology = technologyDB;
 
-    // retrieve geography data
-    const geographyData = await fetchAirtableData(GEOGRAPHY_TABLE);
-    const geographyDB = {}
-    for(const geography of geographyData){
-        geographyDB[geography.id] = geography.fields;
-    }
-    dataLibrary.geography = geographyDB;
+    // // retrieve geography data
+    // const geographyData = await fetchAirtableData(GEOGRAPHY_TABLE);
+    // const geographyDB = {}
+    // for(const geography of geographyData){
+    //     geographyDB[geography.id] = geography.fields;
+    // }
+    // dataLibrary.geography = geographyDB;
 
-    // retrieve company data
-    const companyData = await fetchAirtableData(COMPANY_TABLE);
+    // // retrieve company data
+    // const companyData = await fetchAirtableData(COMPANY_TABLE);
 
-    const companyDB = {}
-    for(const company of companyData){
-        companyDB[company.id] = company.fields
-    }
-    dataLibrary.companies = companyDB;
+    // const companyDB = {}
+    // for(const company of companyData){
+    //     companyDB[company.id] = company.fields
+    // }
+    // dataLibrary.companies = companyDB;
+    
+    
+    dataLibrary = dataSource
+    extractNodes(dataLibrary);  
 
-    const data = extractNodes(dataLibrary);  
-
-    updateRadius(data.nodes);
-    data.links = generateLinks(data.nodes);
-    drawMap(data);
+    startSimulation()
+     setTimeout(() => {
+    document.querySelector('#radio-sec').click()
+  }, 350);
 }
 
 main();

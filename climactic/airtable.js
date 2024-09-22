@@ -17,23 +17,42 @@
 
   // AI Technology: ['rec473cJgs1TmhZe1']
 
+
 async function fetchAirtableData(table) {
   const url = `https://api.airtable.com/v0/${BASE_ID}/${table}`;
+  let allRecords = [];
+  let offset = null;
 
   try {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-      },
-    });
+    do {
+      // Build the request URL, including the offset if it's provided
+      const fullUrl = offset ? `${url}?offset=${offset}` : url;
 
-    const data = await response.json();
+      // Fetch the data
+      const response = await fetch(fullUrl, {
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+        },
+      });
 
-    return data.records; // Returns the records for further use
+      const data = await response.json();
+
+      // Append the fetched records to the list of all records
+      allRecords = [...allRecords, ...data.records];
+
+      // Update the offset for the next request (if any)
+      offset = data.offset;
+
+    } while (offset); // Continue looping if there is an offset
+
+    console.log(allRecords); // Output all the records
+    return allRecords; // Return the accumulated records
+
   } catch (error) {
     console.error('Error fetching data from Airtable:', error);
   }
 }
+
 
 /**
  * Get the current date in MM/DD/YYYY format

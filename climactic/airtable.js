@@ -2,7 +2,7 @@
    * CONSTANTS
    */
 
-  const API_KEY = "patctKm5qno8d8Yzl.29ea5fb5f7006d5d8dc95fd2a20a73a24b038ad8c5414ea7c926ebc36cf4b016"
+  const API_KEY = "patnA5SnjK3WxSgQk.34a8a25d3ae2165bf88163c9badf073e6de64bc2d74118bfcab56ed0b66d828a"
   const BASE_ID = "appLWSGsM7ea5aIdP"
   const USER_TABLE = "tbl9N0zsqlnHJMoNt"
   const COMPANY_TABLE = "tblIfbYAQMrmZGIQ4"

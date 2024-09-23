@@ -137,7 +137,6 @@ function updateSelection(d, nodes, dataLibrary,titleText, animate = false, filte
             // update usecases tags
             const usecasesTaglist = d3.select( d3.selectAll('.ai-info_tag-usecases').node().parentNode)
             const usecases = d.data['Use Case'].map(d=>({id:d, name: dataLibrary.usecase[d]['Use Case']}))
-            console.log('usecase', usecases)
             usecasesTaglist.selectAll('div').data(usecases).join(enter=>{
                 enter.append('div').html(d=>d.name).classed('ai-info_tag-usecases', true)
             }, update=>{
@@ -186,7 +185,18 @@ function updateSelection(d, nodes, dataLibrary,titleText, animate = false, filte
 
               // update the card ai-info_card-paragraph inside the second ai-info_card-info-content
             const companyOverview = document.querySelector(SELECTORS.companyOverview)
-            companyOverview.innerHTML = d.data['Company Overview'];            
+            companyOverview.innerHTML = d.data['Company Overview'];  
+            
+            const followLink = document.querySelector('.ai-info_card-base-wrapper .ai-info_card-text-link-wrapper');
+            const formContainer = document.querySelector('.ai-info-follow-form_component');
+            formContainer.style.display = "none";
+
+            followLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                followCompany(d.data.Company);
+                event.stopPropagation();
+                }
+            );
         })
         
        

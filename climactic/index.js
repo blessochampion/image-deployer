@@ -232,11 +232,11 @@ const drawMap = (data) => {
     .join("g")
     root.append("rect")
     .attr("width",(d)=> {
-        d.width = 205
+        d.width = 265
         return d.width
     })
     .attr("height", (d)=>{
-        d.height = 50
+        d.height = 80
         return d.height
     })
     .attr("fill", "#CD735F")
@@ -263,14 +263,14 @@ const drawMap = (data) => {
     .style("color", "white")
     .style("text-align", "center")
     .style("border-right", "1px solid white")
-        .style("font-size", "12px")
+        .style("font-size", "16px")
         .style("font-weight", "bold")
     .classed("root-node", true)
     innerDiv.append('div').html(d => d.total)
     .style("margin-left", "auto")
     .style("text-align", "center")
-    .style("width", "45px")
-    .style("font-size", "12px")
+    .style("width", "75px")
+    .style("font-size", "16px")
     .style("font-weight", "bold")
     .style("color", "white")
 
@@ -469,6 +469,7 @@ const main = async () => {
     
     dataLibrary = dataSource
     extractNodes(dataLibrary);  
+    console.log( dataLibrary.dataGrouping)
 
     startSimulation()
      setTimeout(() => {

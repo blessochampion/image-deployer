@@ -5,6 +5,7 @@ const margin = {top: 20, right: 20, bottom: 30, left: 40};
 const defaultMargin = 1;
 const maxRadius = 180;
 const minRadius = 80;
+let currenZoom = 1;
 
 container.select('img').remove();
 const tooltip = d3.create('div').attr('id','tooltip').classed('tooltip', true)
@@ -149,6 +150,8 @@ function handleZoom(e) {
           .style('width', `${newPipWidth}px`)
           .style('height', `${newPipHeight}px`);
     g.attr('transform', e.transform);
+
+    currenZoom = scale;
 
 }
 

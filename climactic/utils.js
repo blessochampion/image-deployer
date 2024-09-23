@@ -223,7 +223,6 @@ function updateSelection(d, nodes, dataLibrary,titleText, animate = false, filte
 }
 
 
-const baseSelector = 'data'
 const SELECTORS = {
     emailForm : `[${baseSelector}=email-form]`,
     name: `[${baseSelector}=name]`,

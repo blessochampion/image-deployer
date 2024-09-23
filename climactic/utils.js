@@ -184,15 +184,11 @@ function updateSelection(d, nodes, dataLibrary,titleText, animate = false, filte
             }
             )
 
-
-            // update the card ai-info_card-paragraph inside the second ai-info_card-info-content
-            const aiParagraphs = d3.selectAll('.ai-info_card-info-content').select('.ai-info_card-paragraph');
-            // pick the second paragraph
-            const secondParagraph = aiParagraphs.filter((d, i)=>i===1);
-            secondParagraph.html(d.data['Company Overview']);
-            
+              // update the card ai-info_card-paragraph inside the second ai-info_card-info-content
+            const companyOverview = document.querySelector(SELECTORS.companyOverview)
+            companyOverview.innerHTML = d.data['Company Overview'];            
         })
-        // select the item with the d's node id and click it
+        
        
     }, exit=>{
        exit.node().style.display = "none";
@@ -230,6 +226,7 @@ const SELECTORS = {
     usecaseDropdown: `[${baseSelector}=usecase-dropdown]`,
     technologyDropdown: `[${baseSelector}=technology-dropdown]`,
     geographyDropdown: `[${baseSelector}=geography-dropdown]`,
+    companyOverview: `[${baseSelector}=company-overview]`,
 }
 
 const dropDownEffect = (container = document, onItemSelected)=>{

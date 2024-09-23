@@ -35,6 +35,17 @@ function checkBounds(d){
   if (d.y > width) d.y = height;
 }
 
+const followCompanyBtn = ()=>{
+
+    function follow(company){
+
+    }
+    
+    return {
+        follow
+    }
+}
+
 function updateSelection(d, nodes, dataLibrary,titleText, animate = false, filter = node => node.group === d.group && !node.root){
      if(!userExists()&& !userEmailDisplayedAlready()){
         const modalAIEmail = document.querySelector(SELECTORS.modalAIEmail);
@@ -223,6 +234,7 @@ function updateSelection(d, nodes, dataLibrary,titleText, animate = false, filte
 }
 
 
+const baseSelector = 'data'
 const SELECTORS = {
     emailForm : `[${baseSelector}=email-form]`,
     name: `[${baseSelector}=name]`,

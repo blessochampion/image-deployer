@@ -2,7 +2,7 @@
    * CONSTANTS
    */
 
-  const API_KEY = "..."
+  const API_KEY = "patnA5SnjK3WxSgQk.34a8a25d3ae2165bf88163c9badf073e6de64bc2d74118bfcab56ed0b66d828a"
   const BASE_ID = "appLWSGsM7ea5aIdP"
   const USER_TABLE = "tbl9N0zsqlnHJMoNt"
   const COMPANY_TABLE = "tblIfbYAQMrmZGIQ4"
@@ -73,16 +73,12 @@ function getCurrentDate() {
 }
 
 // Function to save name and email to Airtable
-async function saveToAirtable(name, email) {
+async function saveToAirtable(fields) {
   const url = `https://api.airtable.com/v0/${BASE_ID}/${USER_TABLE}`;
   
   // The data object you want to send to Airtable
   const recordData = {
-    fields: {
-      Name: name,     // Airtable field "Name"
-      Email: email ,   // Airtable field "Email"
-      Created_at: getCurrentDate() // Airtable field "Created_at"
-    }
+    fields
   };
 
   try {

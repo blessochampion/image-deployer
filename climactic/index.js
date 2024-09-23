@@ -80,9 +80,9 @@ dropDownEffect(aiTechnology, (selected)=>{
 } )
 
 // region dropdown
-const regionDropdown = document.querySelector(SELECTORS.geographyDropdown);
-dropDownEffect(regionDropdown, (selected)=>{
-  dropDowns.region = selected;
+const geographyDropdown = document.querySelector(SELECTORS.geographyDropdown);
+dropDownEffect(geographyDropdown, (selected)=>{
+  dropDowns.geography = selected;
   // dispatch the event
   window.dispatchEvent(dropDownEvent);
 } )

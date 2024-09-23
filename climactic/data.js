@@ -8759,7 +8759,7 @@ var dataSource = {
           "url": "https://v5.airtableusercontent.com/v3/u/33/33/1727049600000/3zvjZE9UcE5KjTaRIGxc9A/cWeaYettUwIww6f-o5CPZDD4b-LS1SYWKmbkLAjDioftAzlQDCfUKFw1bzCKRZLN8aJAHMY8dEiN_OQpZEmxRuHqimh38K2xB-RGP0zrEGKEwRL62cwaUlmHMvH8FCELdF2LVTG7CPsVecnB9yC_NVqbxZJWMw2BYd7kFmii6fqHWYKgKZ_QM7mjfPFmxr9cXz-YOwmFt0OKvNspArGUpA/5xep8GeFXScNq0jum5xzYmMqHKIdee3-TFkBNvYke-k",
           "filename": "64c86c5f837da0852e9315c1_Vayu-Vertical-Color-on-Dark.jpeg",
           "size": 9598,
-          "type": "image/svg+xml",
+          "type": "image/jpeg",
           "thumbnails": {
             "small": {
               "url": "https://v5.airtableusercontent.com/v3/u/33/33/1727049600000/FdysWJ0IBt5Wfv75E_VvGg/pRE9RE885YhzK29dvFpvrOU_XoTr1ko1HpqPm6ZTePYvfhBwvePOC2J6ZZOvs8EFUWWVB_gWnecbnzpWVDQds83V1ivPuk72jUbPN3MlBfJUlkQex5dNa7F8wnk7pjv4laXKi8fAn5TFz_AcGojzqg/-2GTons9eTbL9IPy4-b5TzisVFHUo4_wsHqNO43Aljs",

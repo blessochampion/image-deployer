@@ -50,7 +50,8 @@ const resetButton = d3.select('#reset-button');
 resetButton.on('click', ()=>{
   dropDowns.sector = [];
   dropDowns.technology = [];
-  dropDowns.region = [];
+  dropDowns.geography = [];
+  dropDowns.usecase = [];
   window.dispatchEvent(dropDownEvent);
 })
 

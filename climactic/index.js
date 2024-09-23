@@ -3,7 +3,7 @@ let {width, height} = container.node().getBoundingClientRect();
 height = Math.min( height, 800);
 const margin = {top: 20, right: 20, bottom: 30, left: 40};
 const defaultMargin = 1;
-const maxRadius = 120;
+const maxRadius = 180;
 const minRadius = 80;
 
 container.select('img').remove();
@@ -232,7 +232,7 @@ const drawMap = (data) => {
     .join("g")
     root.append("rect")
     .attr("width",(d)=> {
-        d.width = 185
+        d.width = 205
         return d.width
     })
     .attr("height", (d)=>{
@@ -469,7 +469,6 @@ const main = async () => {
     
     dataLibrary = dataSource
     extractNodes(dataLibrary);  
-    console.log( dataLibrary.dataGrouping)
 
     startSimulation()
      setTimeout(() => {

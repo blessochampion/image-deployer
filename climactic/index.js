@@ -24,6 +24,7 @@ const {width: pipParentWidth, height: pipParentHeight} = zoomPipWindow.node().pa
 
 let dataLibrary = {
   sector : {},
+  usecase : {},
   technology :{},
   geography: {},
   companies: {},
@@ -39,27 +40,20 @@ const dropDownEvent  = new Event('dropdownChange');
 
 const dropDowns = {
   sector: [],
-  capability: [],
-  region: [],
+  technology: [],
+  geography: [],
+  usecase : [],
   filterType: 'Sector'
 }
 
 const resetButton = d3.select('#reset-button');
 resetButton.on('click', ()=>{
   dropDowns.sector = [];
-  dropDowns.capability = [];
+  dropDowns.technology = [];
   dropDowns.region = [];
   window.dispatchEvent(dropDownEvent);
 })
 
-
-//Capability
-const capabilityDropdown = document.querySelector(SELECTORS.capabilityDropdown);
-dropDownEffect(capabilityDropdown, (selected)=>{
-  dropDowns.capability = selected;
-  // dispatch the event
-  window.dispatchEvent(dropDownEvent);
-} )
 
 // sector dropdown
 const sectorDropdown = document.querySelector(SELECTORS.sectorDropdown);
@@ -69,8 +63,24 @@ dropDownEffect(sectorDropdown, (selected)=>{
   window.dispatchEvent(dropDownEvent);
 } )
 
+// usecase dropdown
+const usecaseDropdown = document.querySelector(SELECTORS.usecaseDropdown);
+dropDownEffect(usecaseDropdown, (selected)=>{
+  dropDowns.usecase = selected;
+  // dispatch the event
+  window.dispatchEvent(dropDownEvent);
+} )
+
+//AI Technology dropdown
+const aiTechnology = document.querySelector(SELECTORS.technologyDropdown);
+dropDownEffect(aiTechnology, (selected)=>{
+  dropDowns.technology = selected;
+  // dispatch the event
+  window.dispatchEvent(dropDownEvent);
+} )
+
 // region dropdown
-const regionDropdown = document.querySelector(SELECTORS.regionDropdown);
+const regionDropdown = document.querySelector(SELECTORS.geographyDropdown);
 dropDownEffect(regionDropdown, (selected)=>{
   dropDowns.region = selected;
   // dispatch the event
@@ -158,7 +168,7 @@ const drawMap = (data) => {
   const simulation = d3.forceSimulation(nodes)
       .force("link", d3.forceLink(links).id(d => d.id))
       .force("charge", d3.forceManyBody())
-      .force("collide", d3.forceCollide().strength(1).radius( (d) => d.radius*1.15  ).iterations(1))
+      .force("collide", d3.forceCollide().strength(.5).radius( (d) => d.radius*1.15  ).iterations(1))
       .force("x", d3.forceX())
       .force("y", d3.forceY());
 
@@ -296,7 +306,7 @@ const drawMap = (data) => {
 
     // Reheat the simulation when drag starts, and fix the subject position.
   function dragstarted(event) {
-    if (!event.active) simulation.alphaTarget(0.05).restart();
+    if (!event.active) simulation.alphaTarget(0.035).restart();
     event.subject.fx = event.subject.x;
     event.subject.fy = event.subject.y;
   }
@@ -329,50 +339,50 @@ const drawMap = (data) => {
 
     // listen for dropdown change event
     window.addEventListener('dropdownChange', (event) => {
-      const technologyMap ={
-        "Workflow / Automation": "rec4qQeFCjlU8sqm1",
-        "Robotics" : "rec473cJgs1TmhZe1",
-        "Monitoring / Prevention":"recSe3Qz9GmQ9jPhR",
-        "Modeling Decision Making":"recnwXtg3xXoOcz7k",
-        "Design & Development":"recnwXtg3xXoOcz7k"
-      }
-      const sectorMap = {
-        "Energy":"recyXoWvTmwss4BAp",
-         "Food & Agriculture": "recy0wuS3mRp4XwhG", 
-         "Financials":"recnF11ksqHoG452r",
-        "Supply Chain":"recynwe7IEENu6P6J",
-        "Transport":"recyXoWvTmwss4BAp",
-        "Manufacturing & Heavy" : "recIm4L8A3JnoAjN3",
-        "Built Env" : "recswIFYqw3DXvmGf",
-        "Env Service" : "rec2isCHUUm67gOTw"
-      }
-        const {sector, capability, region} = dropDowns;
+        const {sector, technology,  geography, usecase} = dropDowns;
         node.classed('fade-node', true).classed('unfade-node', false)
         link.classed('fade-link', true).classed('unfade-link', false).style('stroke', 'grey')
         .style('stroke-width', 1)
 
         function filterNodes(node){
           if(node.root) return true;
-            const geography = node.data.Geography.map(g => dataLibrary.geography[g].Geography||"");
+            const geo = node.data.Geography.map(g => dataLibrary.geography[g].Geography||"");
+            // check if the node matches the Geography filter
             let matchGeography = true;
-            if(region.length > 0){
-                matchGeography = convertRegion(region).some(r => geography.includes(r))
+            if(geography.length > 0){
+                matchGeography = geography.some(r => geo.includes(r))
             }
+
+            // check if the node matches the sector filter
             let matchSector = true;
             if(sector.length > 0){
+              const {sector:sectorDB} = dataLibrary
                 matchSector = sector.some(s => {
-                  const sectorId = sectorMap[s];
-                  return node.data['Sector Tags'].includes(sectorId)
+                  return node.data['Sector Tags'].map(s => sectorDB[s]).map(s => s.Sector).includes(s)
                 })
             }
+
+            // check if the node matches the technology filter
             let matchTechnology = true;
-            if(capability.length > 0){
-                matchTechnology = capability.some(c => {
-                  const technologyId = technologyMap[c];
-                  return node.data['AI Technology'].includes(technologyId)
+            if(technology.length > 0){
+              const {technology:technologyDB} = dataLibrary
+                matchTechnology = technology.some(t => {
+                  return node.data['AI Technology'].map(s => technologyDB[s]).map(t => t['Technology']).includes(t)
                 })
             }
-            return matchTechnology && matchSector && matchGeography
+
+            // check if the node matches the usecase filter
+            let matchUsecase = true;
+            if(usecase.length > 0){
+              const {usecase:usecaseDB} = dataLibrary
+                matchUsecase = usecase.some(u => {
+                  return node.data['Use Case'].map(s => usecaseDB[s]).map(u => u['Use Case']).includes(u)
+                })
+            }
+
+            // console.log(dataLibrary.usecase)
+
+            return matchTechnology && matchSector && matchGeography && matchUsecase
         }
         const filteredNodes = node.filter(filterNodes);
         const filteredLinks = link.filter(link => {
@@ -397,7 +407,6 @@ const drawMap = (data) => {
           if(dropDowns['filterType'] === filterType)return;
 
           dropDowns['filterType'] = filterType;
-            // window.dispatchEvent(dropDownEvent);
             startSimulation()
         })
       })
@@ -407,6 +416,7 @@ const drawMap = (data) => {
 }
 
 const startSimulation =()=>{
+  console.log( dataLibrary.dataGrouping)
   const data = dataLibrary.dataGrouping[dropDowns.filterType];
     updateRadius(data.nodes);
     data.links = generateLinks(data.nodes);
@@ -414,29 +424,37 @@ const startSimulation =()=>{
 }
 
 
-const main = async () => {
-    //const data = await retrieveData();
-    // retrieve the sector data
+const main = async () => {    
+    // // retrieve the sector data
     // const sectorData = await fetchAirtableData(SECTOR_TABLE);
     // const sectorDB = {}
-    // for(const sector of sectorData){
-    //     sectorDB[sector.id] = sector.fields;
+    // for(const {id, fields} of sectorData){
+    //     sectorDB[id] = fields;
     // }
     // dataLibrary.sector = sectorDB;
+
+    // // retrieve the usecase data
+    // const usecaseData = await fetchAirtableData(USECASE_TABLE);
+    // const usecaseDB = {}
+    // for(const {id,fields} of usecaseData){
+    //     usecaseDB[id] = fields;
+    // }
+    // dataLibrary.usecase = usecaseDB;
+
 
     // // retrieve the technology data
     // const technologyData = await fetchAirtableData(TECHNOLOGY_TABLE);
     // const technologyDB = {}
-    // for(const technology of technologyData){
-    //     technologyDB[technology.id] = technology.fields;
+    // for(const {id, fields} of technologyData){
+    //     technologyDB[id] = fields;
     // }
     // dataLibrary.technology = technologyDB;
 
     // // retrieve geography data
     // const geographyData = await fetchAirtableData(GEOGRAPHY_TABLE);
     // const geographyDB = {}
-    // for(const geography of geographyData){
-    //     geographyDB[geography.id] = geography.fields;
+    // for(const {id, fields} of geographyData){
+    //     geographyDB[id] = fields;
     // }
     // dataLibrary.geography = geographyDB;
 
@@ -444,14 +462,14 @@ const main = async () => {
     // const companyData = await fetchAirtableData(COMPANY_TABLE);
 
     // const companyDB = {}
-    // for(const company of companyData){
-    //     companyDB[company.id] = company.fields
+    // for(const {id, fields} of companyData){
+    //     companyDB[id] = fields
     // }
     // dataLibrary.companies = companyDB;
     
-    
     dataLibrary = dataSource
     extractNodes(dataLibrary);  
+    console.log( dataLibrary.dataGrouping)
 
     startSimulation()
      setTimeout(() => {

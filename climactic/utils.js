@@ -118,14 +118,32 @@ function updateSelection(d, nodes, dataLibrary,titleText, animate = false, filte
             link.attr("target", "_blank");
             link.html(d.data['Website']);
 
-            // update capabilities tags
-            const capabilitiesTaglist = d3.select('.ai-info_tag-wrapper');
-            const capabilities = d.data['AI Technology'].map(d=>({id:d, name: dataLibrary.technology[d]['Technology']}))
-            capabilitiesTaglist.selectAll('div').data(capabilities).join(enter=>{
+            // update technologia tags
+            const technologiesTaglist = d3.select( d3.selectAll('.ai-info_tag-cap').node().parentNode)
+            const technologies = d.data['AI Technology'].map(d=>({id:d, name: dataLibrary.technology[d]['Technology']}))
+            technologiesTaglist.selectAll('div').data(technologies).join(enter=>{
                 enter.append('div').html(d=>d.name).classed('ai-info_tag-cap', true)
             }, update=>{
                 update.html(c=>c.name).on("click", (event, e)=>{
                     const matchingCompanies =  dataLibrary.technology[e.id]['AI x Climate Tech Companies'];
+                    const filter = node=>matchingCompanies.includes(node.comanyId);
+                    updateSelection(d, nodes, dataLibrary, e.name,false, filter)
+                })
+            }, exit=>{
+                exit.remove()
+            })
+
+
+            // update usecases tags
+            const usecasesTaglist = d3.select( d3.selectAll('.ai-info_tag-usecases').node().parentNode)
+            const usecases = d.data['Use Case'].map(d=>({id:d, name: dataLibrary.usecase[d]['Use Case']}))
+            console.log('usecase', usecases)
+            usecasesTaglist.selectAll('div').data(usecases).join(enter=>{
+                enter.append('div').html(d=>d.name).classed('ai-info_tag-usecases', true)
+            }, update=>{
+                update.html(c=>c.name).on("click", (event, e)=>{
+                    const matchingCompanies =  dataLibrary.usecase[e.id]['AI x Climate Tech Companies'];
+                    console.log('matchingCompanies', matchingCompanies)
                     const filter = node=>matchingCompanies.includes(node.comanyId);
                     updateSelection(d, nodes, dataLibrary, e.name,false, filter)
                 })
@@ -208,9 +226,10 @@ const SELECTORS = {
     successMessage: `[${baseSelector}=success-message]`,
     modalAIEmail: `[${baseSelector}=modal-ai-email]`,
     zoomPipWindow: `[${baseSelector}=zoom-pip-window]`,
-    capabilityDropdown: `[${baseSelector}=capability-dropdown]`,
     sectorDropdown: `[${baseSelector}=sector-dropdown]`,
-    regionDropdown: `[${baseSelector}=region-dropdown]`,
+    usecaseDropdown: `[${baseSelector}=usecase-dropdown]`,
+    technologyDropdown: `[${baseSelector}=technology-dropdown]`,
+    geographyDropdown: `[${baseSelector}=geography-dropdown]`,
 }
 
 const dropDownEffect = (container = document, onItemSelected)=>{
@@ -230,7 +249,7 @@ const dropDownEffect = (container = document, onItemSelected)=>{
             return;
         }
 
-        onItemSelected(selectedItems.map(item=>item.querySelector('.ai-filters_dropdown-text').textContent));
+        onItemSelected(selectedItems.map(item=>decodeURIComponent(item.querySelector('.ai-filters_dropdown-text').textContent)));
     }
 
   // Add click event listener to each item
@@ -265,7 +284,10 @@ const dropDownEffect = (container = document, onItemSelected)=>{
 
 
 const extractNodes = (dataLibrary)=>{
-    const keys =  [{name:'Sector',keyName:"Sector", data: dataLibrary.sector}, {name:'Technology',keyName:"Capability", data: dataLibrary.technology}, {name:'Geography',keyName:"Region" ,data: dataLibrary.geography}]
+    const keys =  [{name:'Sector',keyName:"Sector", data: dataLibrary.sector}, 
+        {name:'Technology',keyName:"AI Technology", data: dataLibrary.technology}, 
+        {name:'Use Case',keyName:"Use Case", data: dataLibrary.usecase}, 
+        {name:'Geography',keyName:"Geography" ,data: dataLibrary.geography}]
     
     for(const {name, keyName, data} of keys){
         const graph = {
@@ -317,16 +339,4 @@ const extractNodes = (dataLibrary)=>{
     })
     dataLibrary.dataGrouping[keyName] = graph;
     }
-}
-
-const convertRegion = (regions)=>{
-    const finalRegions = []
-   for (const region of regions) {
-        if(region === "Americas"){
-            finalRegions.push(...['North America' ])
-            continue;
-        }
-        finalRegions.push(region);
-    }
-    return finalRegions;
 }

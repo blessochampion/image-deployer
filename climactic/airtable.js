@@ -7,6 +7,7 @@
   const USER_TABLE = "tbl9N0zsqlnHJMoNt"
   const COMPANY_TABLE = "tblIfbYAQMrmZGIQ4"
   const SECTOR_TABLE = "tblhYUkdSxuxXU02J"
+  const USECASE_TABLE = "tbl2fhMvGjNYL5fsj"
   const TECHNOLOGY_TABLE = "tblaUDRxDAjHDjTMt"
   const GEOGRAPHY_TABLE = "tblM6MGoJ4HeonRTM"
   
@@ -45,7 +46,6 @@ async function fetchAirtableData(table) {
 
     } while (offset); // Continue looping if there is an offset
 
-    console.log(allRecords); // Output all the records
     return allRecords; // Return the accumulated records
 
   } catch (error) {

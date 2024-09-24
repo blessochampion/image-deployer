@@ -5,7 +5,7 @@ const margin = {top: 20, right: 20, bottom: 30, left: 40};
 const defaultMargin = 1;
 const maxRadius = 180;
 const minRadius = 80;
-let currenZoom = 1;
+let currenZoom = 0.5;
 
 container.select('img').remove();
 const tooltip = d3.create('div').attr('id','tooltip').classed('tooltip', true)
@@ -332,14 +332,7 @@ const drawMap = (data) => {
 
   //Call the zoom function
   svg.call(zoom)
-    //   .translateExtent([[0, 0], [width/4, height/4]]);
-
-    // .on("mousedown.zoom", null)
-    //     .on("touchstart.zoom", null)
-    //     .on("touchmove.zoom", null)
-    //     .on("touchend.zoom", null);
-
-    svg.call(zoom.transform, d3.zoomIdentity.scale(0.5))
+    svg.call(zoom.transform, d3.zoomIdentity.scale(currenZoom))
 
     // listen for dropdown change event
     window.addEventListener('dropdownChange', (event) => {

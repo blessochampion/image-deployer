@@ -35,17 +35,6 @@ function checkBounds(d){
   if (d.y > width) d.y = height;
 }
 
-const followCompanyBtn = ()=>{
-
-    function follow(company){
-
-    }
-    
-    return {
-        follow
-    }
-}
-
 function updateSelection(d, nodes, dataLibrary,titleText, animate = false, filter = node => node.group === d.group && !node.root){
      if(!userExists()&& !userEmailDisplayedAlready()){
         const modalAIEmail = document.querySelector(SELECTORS.modalAIEmail);
@@ -197,17 +186,8 @@ function updateSelection(d, nodes, dataLibrary,titleText, animate = false, filte
               // update the card ai-info_card-paragraph inside the second ai-info_card-info-content
             const companyOverview = document.querySelector(SELECTORS.companyOverview)
             companyOverview.innerHTML = d.data['Company Overview'];  
-            
-            const followLink = document.querySelector('.ai-info_card-base-wrapper .ai-info_card-text-link-wrapper');
-            const formContainer = document.querySelector('.ai-info-follow-form_component');
-            formContainer.style.display = "none";
 
-            followLink.addEventListener("click", (event) => {
-                event.preventDefault();
-                followCompany(d.data.Company);
-                event.stopPropagation();
-                }
-            );
+            followCompany(d.data.Company);
         })
         
        

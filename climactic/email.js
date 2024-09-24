@@ -61,32 +61,28 @@ const start = async () => {
     });
 }
 
-const followCompany = async (companyName) => {
-    console.log("followCompany", companyName);
-    const formContainer = document.querySelector('.ai-info-follow-form_component');
-    // if the form is already displayed, hide it
+const followLink = document.querySelector('.ai-info_card-base-wrapper .ai-info_card-text-link-wrapper');
+const formContainer = document.querySelector('.ai-info-follow-form_component');
+const successMessage = document.querySelector('.ai-info-follow-form_success');
+const form = document.querySelector('#wf-form-AI-Info-Follow-Form');
+const email = form.querySelector('.ai-info-follow-form_text-field');
+const followInput = form.querySelector('.ai-info-follow-form_button');
+
+formContainer.style.display = "none";
+followLink.addEventListener("click", () => {
+    // hide the form if it is already displayed
     if (formContainer.style.display !== "none") {
         formContainer.style.display = "none";
         return;
     }
-    console.log("followCompany 2", companyName);
-
-
+    // show the form
     formContainer.style.display = "block";
-    
-    const form = document.querySelector('#wf-form-AI-Info-Follow-Form');
-    form.style.display = "flex"
-
-
-    // get the email field
-    const email = form.querySelector('.ai-info-follow-form_text-field');
-
-    // get the follow input
-    const followInput = form.querySelector('.ai-info-follow-form_button');
-
-    // get the success message element
-    const successMessage = document.querySelector('.ai-info-follow-form_success');
     successMessage.style.display = "none";
+    form.style.display = "flex";
+});
+
+const followCompany = async (companyName) => {    
+    formContainer.style.display = "none";
 
     // listen for the submit event
     form.addEventListener("submit", async (event) => {
@@ -98,7 +94,6 @@ const followCompany = async (companyName) => {
 
         // get the value of the email field
         const emailValue = email.value;
-
       
 
         // send the data to Airtable
@@ -113,7 +108,7 @@ const followCompany = async (companyName) => {
              // hide the form and show the success message
             successMessage.style.display = "block";
             followInput.value = "Follow";
-            form.reset();
+            email.value = "";
             form.style.display = "none";
 
             setTimeout(() => {

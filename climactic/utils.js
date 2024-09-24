@@ -338,3 +338,10 @@ const extractNodes = (dataLibrary)=>{
     dataLibrary.dataGrouping[keyName] = graph;
     }
 }
+
+/**
+ * Determine if this is a mobile device
+ */
+const  isMobileDevice = ()=>{
+    return window.innerWidth < 768;
+}

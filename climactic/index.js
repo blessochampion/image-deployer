@@ -6,6 +6,7 @@ const defaultMargin = 1;
 const maxRadius = 180;
 const minRadius = 80;
 let currenZoom = 0.5;
+const isMobile = isMobileDevice();
 
 container.select('img').remove();
 const tooltip = d3.create('div').attr('id','tooltip').classed('tooltip', true)
@@ -22,6 +23,7 @@ if(!dimension.width || !dimension.height){
 }
 const {width: pipWidth, height: pipHeight} = dimension
 const {width: pipParentWidth, height: pipParentHeight} = zoomPipWindow.node().parentNode.getBoundingClientRect()
+
 
 let dataLibrary = {
   sector : {},
@@ -466,11 +468,14 @@ const main = async () => {
     
     dataLibrary = dataSource
     extractNodes(dataLibrary);  
-    console.log( dataLibrary.dataGrouping)
 
     startSimulation()
      setTimeout(() => {
-    document.querySelector('#radio-sec').click()
+      if(isMobile){
+        document.querySelector('#radio-sec-mob').click()
+      }else{
+        document.querySelector('#radio-sec').click()
+      }
   }, 350);
 }
 

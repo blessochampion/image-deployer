@@ -142,7 +142,6 @@ function updateSelection(d, nodes, dataLibrary,titleText, animate = false, filte
             }, update=>{
                 update.html(c=>c.name).on("click", (event, e)=>{
                     const matchingCompanies =  dataLibrary.usecase[e.id]['AI x Climate Tech Companies'];
-                    console.log('matchingCompanies', matchingCompanies)
                     const filter = node=>matchingCompanies.includes(node.comanyId);
                     updateSelection(d, nodes, dataLibrary, e.name,false, filter)
                 })
@@ -278,6 +277,49 @@ const dropDownEffect = (container = document, onItemSelected)=>{
       }
     });
   });
+}
+
+
+const dropDownEffectMobile = (container = document, onItemSelected)=>{
+    const dropdownItems = container.querySelectorAll('.ai-filter-mob_filter-content');
+    
+
+  // Add click event listener to each item
+  dropdownItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      // Get the radio border element inside the clicked item
+      const radioBorder = this.querySelector('.ai-filter-mob-filrer-radio-border');
+      
+      // Toggle the opacity
+      if (radioBorder.style.opacity === "0") {
+        radioBorder.style.opacity = 1;  // Change the opacity value as needed
+        radioBorder.style.display = "flex";
+      } else {
+        radioBorder.style.opacity = 0;
+        radioBorder.style.display = "none";
+      }
+    });
+  });
+}
+
+const dropdownMobile = (container )=>{
+    const dropdownItems = container.querySelectorAll('.ai-filter-mob_filter-content');
+   
+    const selectedItems = []
+    dropdownItems.forEach(item=>{
+        const radioBorder = item.querySelector('.ai-filter-mob-filrer-radio-border');
+        if(radioBorder.style.opacity === "1"){
+            selectedItems.push(item);
+        }
+    });
+    
+    if(selectedItems.length === dropdownItems.length){
+        return []
+    }
+
+    return selectedItems.map(item=>decodeURIComponent(item.querySelector('.ai-filter-mob_filter-text').textContent));
 }
 
 

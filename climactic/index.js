@@ -49,47 +49,78 @@ const dropDowns = {
   filterType: 'Sector'
 }
 
-const resetButton = d3.select('#reset-button');
-resetButton.on('click', ()=>{
+const resetFilters = ()=>{
   dropDowns.sector = [];
   dropDowns.technology = [];
   dropDowns.geography = [];
   dropDowns.usecase = [];
   window.dispatchEvent(dropDownEvent);
+}
+
+// reset button
+const resetButton = d3.select('#reset-button');
+resetButton.on('click', resetFilters )
+const filterPopupCloseIcon = d3.select('.ai-filter-mob_close-wrapper');
+// reset button for mobile
+const resetButtonMob = d3.select('.ai-filter-mob_filter-reset-button');
+resetButtonMob.on('click', ()=>{
+  //hide the modal
+  filterPopupCloseIcon.node().click();
+  resetFilters();
+} )
+// filter button for mobile
+const filterButtonMob = d3.select('.ai-filter-mob_filter-add-button');
+filterButtonMob.on('click', ()=>{
+  const sector = dropdownMobile(document.querySelector('#mobile-filter-section-sector'))
+  const usecase = dropdownMobile(document.querySelector('#mobile-filter-section-usecase'))
+  const technology = dropdownMobile(document.querySelector('#mobile-filter-section-ai-technology'))
+  const geography = dropdownMobile(document.querySelector('#mobile-filter-section-geography'))
+  //hide the modal
+  document.querySelector('.modal_ai-filter-mob').style.display = 'none';
+
+  dropDowns.sector = sector;
+  dropDowns.technology = technology;
+  dropDowns.geography = geography;
+  dropDowns.usecase = usecase;
+   window.dispatchEvent(dropDownEvent);
 })
 
 
-// sector dropdown
-const sectorDropdown = document.querySelector(SELECTORS.sectorDropdown);
-dropDownEffect(sectorDropdown, (selected)=>{
-  dropDowns.sector = selected;
-  // dispatch the event
-  window.dispatchEvent(dropDownEvent);
-} )
+if(isMobile){
+  dropDownEffectMobile()
+}else{
+  // sector dropdown
+  const sectorDropdown = document.querySelector(SELECTORS.sectorDropdown);
+  dropDownEffect(sectorDropdown, (selected)=>{
+    dropDowns.sector = selected;
+    // dispatch the event
+    window.dispatchEvent(dropDownEvent);
+  } )
 
-// usecase dropdown
-const usecaseDropdown = document.querySelector(SELECTORS.usecaseDropdown);
-dropDownEffect(usecaseDropdown, (selected)=>{
-  dropDowns.usecase = selected;
-  // dispatch the event
-  window.dispatchEvent(dropDownEvent);
-} )
+  // usecase dropdown
+  const usecaseDropdown = document.querySelector(SELECTORS.usecaseDropdown);
+  dropDownEffect(usecaseDropdown, (selected)=>{
+    dropDowns.usecase = selected;
+    // dispatch the event
+    window.dispatchEvent(dropDownEvent);
+  } )
 
-//AI Technology dropdown
-const aiTechnology = document.querySelector(SELECTORS.technologyDropdown);
-dropDownEffect(aiTechnology, (selected)=>{
-  dropDowns.technology = selected;
-  // dispatch the event
-  window.dispatchEvent(dropDownEvent);
-} )
+  //AI Technology dropdown
+  const aiTechnology = document.querySelector(SELECTORS.technologyDropdown);
+  dropDownEffect(aiTechnology, (selected)=>{
+    dropDowns.technology = selected;
+    // dispatch the event
+    window.dispatchEvent(dropDownEvent);
+  } )
 
-// region dropdown
-const geographyDropdown = document.querySelector(SELECTORS.geographyDropdown);
-dropDownEffect(geographyDropdown, (selected)=>{
-  dropDowns.geography = selected;
-  // dispatch the event
-  window.dispatchEvent(dropDownEvent);
-} )
+  // region dropdown
+  const geographyDropdown = document.querySelector(SELECTORS.geographyDropdown);
+  dropDownEffect(geographyDropdown, (selected)=>{
+    dropDowns.geography = selected;
+    // dispatch the event
+    window.dispatchEvent(dropDownEvent);
+  } )
+}
 
 
 // Create the SVG container.
@@ -397,7 +428,7 @@ const drawMap = (data) => {
 
 
    setTimeout(() => {
-     // set listners for .ai-toggle_radio-field click event
+     // set listeners for .ai-toggle_radio-field click event
       const radioButtons = document.querySelectorAll('.ai-toggle_radio-field');
       radioButtons.forEach(radio => {
         radio.addEventListener('click', (event) => { 
@@ -409,13 +440,14 @@ const drawMap = (data) => {
             startSimulation()
         })
       })
+
+      // 
    }, 350);
 
 
 }
 
 const startSimulation =()=>{
-  console.log( dataLibrary.dataGrouping)
   const data = dataLibrary.dataGrouping[dropDowns.filterType];
     updateRadius(data.nodes);
     data.links = generateLinks(data.nodes);

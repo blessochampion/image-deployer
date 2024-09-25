@@ -70,19 +70,20 @@ const followInput = form.querySelector('.ai-info-follow-form_button');
 
 formContainer.style.display = "none";
 followLink.addEventListener("click", () => {
-    // hide the form if it is already displayed
-    if (formContainer.style.display !== "none") {
-        formContainer.style.display = "none";
-        return;
-    }
-    // show the form
-    formContainer.style.display = "block";
-    successMessage.style.display = "none";
-    form.style.display = "flex";
+    // // hide the form if it is already displayed
+    // if (formContainer.style.display !== "none") {
+    //     formContainer.style.display = "none";
+    //     return;
+    // }
+    // // show the form
+    // formContainer.style.display = "block";
+    // successMessage.style.display = "none";
+    // form.style.display = "flex";
 });
 
 const followCompany = async (companyName) => {    
-    formContainer.style.display = "none";
+    formContainer.style.display = "block";
+    successMessage.style.display = "none";
 
     // listen for the submit event
     form.addEventListener("submit", async (event) => {
@@ -107,13 +108,16 @@ const followCompany = async (companyName) => {
         if (response.success) {
              // hide the form and show the success message
             successMessage.style.display = "block";
+            successMessage.style.marginTop = "18px";
+            // scroll to the success message to make it visible
+            successMessage.scrollIntoView();
             followInput.value = "Follow";
             email.value = "";
-            form.style.display = "none";
+            // form.style.display = "none";
 
             setTimeout(() => {
-                formContainer.style.display = "none";
-            }, 2000);
+                successMessage.style.display = "none";
+            }, 3000);
         } else {
            // alert("Failed to send email");
         }
